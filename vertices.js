@@ -1,0 +1,79 @@
+function project(lon, lat) {
+  const out = new Float32Array(3);
+
+  const lat_radians = (lat / 180) * Math.PI;
+  const lon_radians = ((lon + 90) / 180) * Math.PI;
+
+  let x = Math.sin(lon_radians);
+  let z = Math.cos(lon_radians);
+  let y = Math.tan(lat_radians);
+
+  const mag = Math.sqrt(1 + y * y);
+
+  x /= mag;
+  y /= mag;
+  z /= mag;
+
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+
+  return out;
+}
+
+// Typed array constructor takes buffer, byte offset, object count
+
+export function compute_geojson(buffer) {
+  // First 4 bytes contain the number of "indices"
+  const count = new Uint32Array(buffer, 0, 1)[0];
+  // Next 4 * count bytes stores the indices
+  const indices = new Uint32Array(buffer, 4, count);
+  // Rest of bytes contain float coordinates (alternating lon-lat pairs)
+  const coords = new Float32Array(buffer, 4 * (indices.length + 1));
+
+  const coord_pairs = [];
+  for (let i = 0; i < coords.length / 2; i++) {
+    coord_pairs.push([coords[2 * i], coords[2 * i + 1]]);
+  }
+
+  return {
+    type: 'Feature',
+    geometry: {
+      type: 'GeometryCollection',
+      geometries: coord_pairs.map(pair => ({
+        type: 'Point',
+        coordinates: pair,
+      })),
+    },
+  };
+}
+
+export function compute_vertices(buffer) {
+  // First 4 bytes contain the number of "indices"
+  const count = new Uint32Array(buffer, 0, 1)[0];
+  // Next 4 * count bytes stores the indices
+  const indices = new Uint32Array(buffer, 4, count);
+  // Rest of bytes contain float coordinates (alternating lon-lat pairs)
+  const coords = new Float32Array(buffer, 4 * (indices.length + 1));
+
+  const vertices = [];
+  let v = 0;
+
+  // Seems like this is constructing an array of pairs of coordinates.
+  // Each "index" represents some count of coordinates.
+  for (let i = 0; i < indices.length; i += 1) {
+    const len = indices[i];
+
+    let a = project(coords[v++], coords[v++]);
+
+    for (let j = 1; j < len; j += 1) {
+      const b = project(coords[v++], coords[v++]);
+
+      vertices.push(a[0], a[1], a[2], b[0], b[1], b[2]);
+
+      a = b;
+    }
+  }
+
+  return new Float32Array(vertices);
+}
