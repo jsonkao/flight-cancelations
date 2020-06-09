@@ -1,5 +1,5 @@
 function project(lon, lat) {
-  const out = new Float32Array(3);
+  const out = new Float32Array(2);
 
   const lat_radians = (lat / 180) * Math.PI;
   const lon_radians = ((lon + 90) / 180) * Math.PI;
@@ -16,9 +16,13 @@ function project(lon, lat) {
 
   out[0] = x;
   out[1] = y;
-  out[2] = z;
+  // out[2] = z;
 
   return out;
+}
+
+function equirectangular_project(lon, lat) {
+
 }
 
 export function compute_vertices(buffer) {
@@ -34,6 +38,7 @@ export function compute_vertices(buffer) {
 
   // Seems like this is constructing an array of pairs of coordinates.
   // Each "index" represents some count of coordinates.
+  // And it just keeps drawing lines between two points.
   for (let i = 0; i < indices.length; i += 1) {
     const len = indices[i];
 
@@ -42,7 +47,7 @@ export function compute_vertices(buffer) {
     for (let j = 1; j < len; j += 1) {
       const b = project(coords[v++], coords[v++]);
 
-      vertices.push(a[0], a[1], a[2], b[0], b[1], b[2]);
+      vertices.push(...a, ...b);
 
       a = b;
     }

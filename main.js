@@ -32,17 +32,11 @@ async function main() {
   const drawBorders = regl({
     frag: borderFrag,
     vert: borderVert,
-
-    uniforms: {
-      pointWidth: 3,
-      time: regl.prop('time'),
-    },
     attributes: {
       position: vertices,
     },
-
     count: vertices.length / 2,
-    primitive: 'points',
+    primitive: 'lines',
   });
 
   const drawTexture = regl({
@@ -50,7 +44,7 @@ async function main() {
     vert: textureVert,
 
     uniforms: {
-      texture: regl.texture({ data: image, flipY: true }),
+      texture: regl.texture({ data: image }),
     },
     attributes: {
       // Two triangles that cover the whole clip space
@@ -64,6 +58,7 @@ async function main() {
   });
 
   drawTexture();
+  // drawBorders();
 }
 
 async function test() {

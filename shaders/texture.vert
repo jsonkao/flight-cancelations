@@ -13,7 +13,9 @@ void main() {
   // Adding 0.5 to position means that (1, 1) in the clip space becomes (1, 1)
   // on the texture, and similarly (0, 0) -> (0.5, 0.5) (the texture's center)
   // and (-1, -1) -> (0, 0).
-  v_position = 0.5 + position * 0.5;
+
+  // v_position = 0.5 + position * 0.5;
+  v_position = position;
 
   // gl_Position should be position because the position attribute covers the
   // whole clip space
