@@ -7,8 +7,6 @@ uniform float tick;
 
 varying vec2 v_position;
 
-vec3 REVERSE_LIGHT = vec3(-1, 1, 1);
-
 void main() {
 
   // Right now, we have v_position in [-1, 1] x [-1, 1]. Each fragment is
@@ -35,9 +33,6 @@ void main() {
   float lambda = atan(y / x) + lambda_offset; // [-PI / 2, PI / 2]
   float phi = acos(z);                        // [0, PI]
 
-  vec3 normal = vec3(y, z, x);
-  float light = dot(normal, REVERSE_LIGHT);
-
   // 3. Convert long-lat radians to long-lat
 
   float longitude = (lambda + PI) / (2. * PI);
@@ -55,8 +50,7 @@ void main() {
   vec3 texture_color =
       texture2D(texture, vec2(mod(longitude, 1.0), mod(latitude, 1.0))).rgb;
 
-  texture_color += vec3(08. / 255.);
+  texture_color += vec3(208. / 255.);
 
   gl_FragColor = vec4(texture_color, 1.);
-  gl_FragColor.rgb *= light;
 }
