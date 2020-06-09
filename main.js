@@ -79,7 +79,6 @@ async function main() {
 async function test() {
   const res = await fetch(`${base}/20200123.dat`);
   const buf = await res.arrayBuffer();
-
   console.log(new Uint16Array(buf));
 }
 
