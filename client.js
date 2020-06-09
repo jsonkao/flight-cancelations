@@ -27,6 +27,8 @@ async function main() {
   const [vertices, bitmap] = await Promise.all([getVertices(), getBitmap()]);
   const texture = regl.texture(bitmap);
 
+  // // console.log('texture()() :>> ', texture()());
+
   const drawBorders = regl({
     frag: borderFrag,
     vert: borderVert,
@@ -51,10 +53,14 @@ async function main() {
       texture,
     },
     attributes: {
-      position: [-2, 0, 0, -2, 2, 2],
+      // position: [-2, 0, 0, -2, 2, 2],
+      position: regl.buffer([
+        [-1, 1], [1, -1], [1, 1],
+        [-1, 1], [1, -1], [-1, -1],
+      ]),
     },
 
-    count: 3,
+    count: 6,
   });
 
   drawTexture();
