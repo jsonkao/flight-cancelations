@@ -17,17 +17,17 @@ async function getVertices() {
     .then(buffer => compute_vertices(buffer));
 }
 
-async function getBitmap() {
-  return fetch(`${base}/textures/specularity@2x.png`)
-    .then(response => response.blob())
-    .then(blob => createImageBitmap(blob));
+async function getImage() {
+  return new Promise(resolve => {
+    const image = new Image();
+    image.src = `${base}/textures/specularity@2x.png`;
+    image.crossOrigin = '';
+    image.onload = () => resolve(image);
+  });
 }
 
 async function main() {
-  const [vertices, bitmap] = await Promise.all([getVertices(), getBitmap()]);
-  const texture = regl.texture(bitmap);
-
-  // // console.log('texture()() :>> ', texture()());
+  const [vertices, image] = await Promise.all([getVertices(), getImage()]);
 
   const drawBorders = regl({
     frag: borderFrag,
@@ -50,10 +50,10 @@ async function main() {
     vert: textureVert,
 
     uniforms: {
-      texture,
+      texture: regl.texture({ data: image, flipY: true }),
     },
     attributes: {
-      // position: [-2, 0, 0, -2, 2, 2],
+      // Two triangles that cover the whole clip space
       position: regl.buffer([
         [-1, 1], [1, -1], [1, 1],
         [-1, 1], [1, -1], [-1, -1],
