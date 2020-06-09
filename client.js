@@ -1,8 +1,10 @@
 import createREGL from 'regl';
 import { compute_vertices } from './vertices';
 
-import frag from './shaders/borders.frag';
-import vert from './shaders/borders.vert';
+import borderFrag from './shaders/borders.frag';
+import borderVert from './shaders/borders.vert';
+import textureFrag from './shaders/texture.frag';
+import textureVert from './shaders/texture.vert';
 
 const regl = createREGL();
 
@@ -10,24 +12,29 @@ const base =
   'https://static01.nyt.com/newsgraphics/2020/02/04/coronavirus-flights/67d5b188d41684d2a82da11e94e358b4a769735e';
 
 async function getVertices() {
-  const res = await fetch(`${base}/geometry/borders.dat`);
-  const buf = await res.arrayBuffer();
-  const vertices = compute_vertices(buf);
-  return vertices;
+  return fetch(`${base}/geometry/borders.dat`)
+    .then(response => response.arrayBuffer())
+    .then(buffer => compute_vertices(buffer));
+}
+
+async function getBitmap() {
+  return fetch(`${base}/textures/specularity@2x.png`)
+    .then(response => response.blob())
+    .then(blob => createImageBitmap(blob));
 }
 
 async function main() {
-  const vertices = await getVertices();
+  const [vertices, bitmap] = await Promise.all([getVertices(), getBitmap()]);
+  const texture = regl.texture(bitmap);
 
-  const draw = regl({
-    frag,
-    vert,
+  const drawBorders = regl({
+    frag: borderFrag,
+    vert: borderVert,
 
     uniforms: {
-      pointWidth: 4,
+      pointWidth: 3,
       time: regl.prop('time'),
     },
-
     attributes: {
       position: vertices,
     },
@@ -36,18 +43,21 @@ async function main() {
     primitive: 'points',
   });
 
-  regl.frame(({time}) => {
-    // clear contents of the drawing buffer
-    regl.clear({
-      color: [0, 0, 0, 0],
-      depth: 1
-    })
+  const drawTexture = regl({
+    frag: textureFrag,
+    vert: textureVert,
 
-    // draw a triangle using the command defined above
-    draw({
-      time
-    })
-  })
+    uniforms: {
+      texture,
+    },
+    attributes: {
+      position: [-2, 0, 0, -2, 2, 2],
+    },
+
+    count: 3,
+  });
+
+  drawTexture();
 }
 
 async function test() {
@@ -56,7 +66,5 @@ async function test() {
 
   console.log(new Uint16Array(buf));
 }
-
-test();
 
 main().catch(console.error);
