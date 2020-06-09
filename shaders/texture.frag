@@ -3,6 +3,7 @@
 precision mediump float;
 
 uniform sampler2D texture;
+uniform float tick;
 
 varying vec2 v_position;
 
@@ -19,25 +20,28 @@ void main() {
 
   // 1. Discard points outside the sphere
   if (sqrt(hyp_squared) > 1.) {
-    discard;
-  } else if (hyp_squared > 0.996) {
-    gl_FragColor = vec4(1, 0, 0, 1);
+    gl_FragColor = vec4(0, 0, 0, 0.04);
     return;
   }
 
   // 2. Determine front-facing spherical coordinate
 
-  float x = sqrt(1. - hyp_squared); // Ignore negative value (back face)
-  float lambda = atan(y / x);
-  float phi = acos(z);
+  float lambda_offset = tick / 400.;
+
+  float x = sqrt(1. - hyp_squared); // Take positive face
+  float lambda = atan(y / x) + lambda_offset; // [-PI / 2, PI / 2]
+  float phi = acos(z);                        // [0, PI]
 
   // 3. Convert long-lat radians to long-lat and grab the texture color
 
-  float longitude = lambda / PI + 0.5;
+  float longitude = (lambda + PI / 2.) / ( 2. * PI);
   float latitude = phi / PI;
-  vec4 texture_color = texture2D(texture, vec2(longitude, latitude));
+  vec3 texture_color =
+      texture2D(texture, vec2(mod(longitude, 1.0), mod(latitude, 1.0))).rgb;
 
-  // Lastly, set the color
+  // 4. Black = land, white = no land. Do some color stuffs
 
-  gl_FragColor = texture_color;
+  texture_color += vec3(208. / 255.);
+
+  gl_FragColor = vec4(texture_color, 1.);
 }

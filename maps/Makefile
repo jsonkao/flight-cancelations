@@ -1,5 +1,13 @@
+#
+# Notes
+#
+# - Natural Earth data is already precut
+# - Polygons are from land physical
+# - Borders are from admin_0_countries using mapshaper -innerlines
+#
+
 border-points.json: borders.json
-	# TODO: structure like Rich: indices = nummber of indices
+	# TODO: structure like Rich: indices = number of indices
 
 borders.json: shapefiles/ne_10m_admin_0_countries.shp
 	# TODO: some simplification

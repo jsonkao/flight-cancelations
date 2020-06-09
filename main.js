@@ -36,7 +36,7 @@ async function main() {
       position: vertices,
     },
     count: vertices.length / 2,
-    primitive: 'lines',
+    primitive: 'points',
   });
 
   const drawTexture = regl({
@@ -45,20 +45,34 @@ async function main() {
 
     uniforms: {
       texture: regl.texture({ data: image }),
+      tick: regl.prop('tick'),
+
+      width: ({ viewportWidth, pixelRatio }) => viewportWidth / pixelRatio,
+      height: ({ viewportHeight, pixelRatio }) => viewportHeight / pixelRatio,
     },
     attributes: {
       // Two triangles that cover the whole clip space
       position: regl.buffer([
-        [-1, 1], [1, -1], [1, 1],
-        [-1, 1], [1, -1], [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+        [-1, 1],
+        [1, -1],
+        [-1, -1],
       ]),
     },
 
     count: 6,
   });
 
-  drawTexture();
-  // drawBorders();
+  regl.frame(({ tick }) => {
+    regl.clear({
+      color: [0, 0, 0, 0],
+      depth: 1,
+    });
+    drawBorders();
+    drawTexture({ tick });
+  });
 }
 
 async function test() {
