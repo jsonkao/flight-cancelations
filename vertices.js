@@ -21,33 +21,6 @@ function project(lon, lat) {
   return out;
 }
 
-// Typed array constructor takes buffer, byte offset, object count
-
-export function compute_geojson(buffer) {
-  // First 4 bytes contain the number of "indices"
-  const count = new Uint32Array(buffer, 0, 1)[0];
-  // Next 4 * count bytes stores the indices
-  const indices = new Uint32Array(buffer, 4, count);
-  // Rest of bytes contain float coordinates (alternating lon-lat pairs)
-  const coords = new Float32Array(buffer, 4 * (indices.length + 1));
-
-  const coord_pairs = [];
-  for (let i = 0; i < coords.length / 2; i++) {
-    coord_pairs.push([coords[2 * i], coords[2 * i + 1]]);
-  }
-
-  return {
-    type: 'Feature',
-    geometry: {
-      type: 'GeometryCollection',
-      geometries: coord_pairs.map(pair => ({
-        type: 'Point',
-        coordinates: pair,
-      })),
-    },
-  };
-}
-
 export function compute_vertices(buffer) {
   // First 4 bytes contain the number of "indices"
   const count = new Uint32Array(buffer, 0, 1)[0];
