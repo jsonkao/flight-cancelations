@@ -28,13 +28,13 @@ void main() {
 
   float lambda_offset = tick / 400.;
 
-  float x = sqrt(1. - hyp_squared); // Take positive face
+  float x = sqrt(1. - hyp_squared);           // Take positive face
   float lambda = atan(y / x) + lambda_offset; // [-PI / 2, PI / 2]
   float phi = acos(z);                        // [0, PI]
 
   // 3. Convert long-lat radians to long-lat and grab the texture color
 
-  float longitude = (lambda + PI / 2.) / ( 2. * PI);
+  float longitude = (lambda + PI) / (2. * PI);
   float latitude = phi / PI;
   vec3 texture_color =
       texture2D(texture, vec2(mod(longitude, 1.0), mod(latitude, 1.0))).rgb;

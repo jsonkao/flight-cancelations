@@ -1,5 +1,7 @@
 precision mediump float;
 
+uniform vec2 aspectRatio;
+
 attribute vec2 position;
 
 varying vec2 v_position;
@@ -15,7 +17,7 @@ void main() {
   // and (-1, -1) -> (0, 0).
 
   // v_position = 0.5 + position * 0.5;
-  v_position = position;
+  v_position = position * aspectRatio;
 
   // gl_Position should be position because the position attribute covers the
   // whole clip space

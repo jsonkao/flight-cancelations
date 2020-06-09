@@ -30,8 +30,8 @@ function equirectangular_project(lon, lat) {
   const x = Math.cos(lat_radians) * Math.cos(lon_radians);
   const y = Math.sin(lat_radians);
 
-  out[0] = x;
-  out[1] = y;
+  out[0] = lon;
+  out[1] = lat;
 
   return out;
 }
@@ -63,6 +63,12 @@ export function compute_vertices(buffer) {
     }
   }
 
-  console.log('coords :>> ', coords);
+  let longs = [];
+  let lats = [];
+  vertices.forEach((v, i) => {
+    (i % 2 === 0 ? longs : lats).push(v);
+  });
+  console.log('longs', Math.min(...longs), Math.max(...longs));
+  console.log('lats', Math.min(...lats), Math.max(...lats));
   return new Float32Array(vertices);
 }
