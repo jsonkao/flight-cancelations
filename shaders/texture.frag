@@ -8,6 +8,9 @@ uniform float tick;
 
 varying vec2 v_position;
 
+vec3 LIGHT_REVERSED = vec3(-1, 1, 1);
+float LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));
+
 void main() {
 
   // Right now, we have v_position in [-1, 1] x [-1, 1]. Each fragment is
@@ -22,8 +25,7 @@ void main() {
   // 1. Discard points outside the sphere
 
   if (sqrt(hyp_squared) > 1.) {
-    gl_FragColor = vec4(0, 0, 0, 0.04);
-    return;
+    discard;
   }
 
   // 2. Determine front-facing spherical coordinate
@@ -42,8 +44,8 @@ void main() {
   // 3.5. Draw lat/lng lines
 
   // if (mod(longitude, PI / 360.) < 0.001) {
-  // gl_FragColor = vec4(0, 0, 0, 0.3);
-  // return;
+  //   gl_FragColor = vec4(0, 0, 0, 0.3);
+  //   return;
   // }
 
   // 4. Grab the texture color and do some color stuffs. Black = land, white =
@@ -53,7 +55,14 @@ void main() {
   vec3 texture_color = texture2D(landTexture, longlat).rgb;
   vec3 mono_color = texture2D(monoTexture, longlat).rgb;
 
-  texture_color += vec3(228. / 255.) * mono_color;
+  texture_color += vec3(240. / 255.) * mono_color;
+
+  // 5. Calculate lighting. Allow it to only impact a little bit.
+
+  vec3 normal = vec3(y, z, x);
+  float light = pow(dot(normal, LIGHT_REVERSED) / LIGHT_MAG, 1.);
+  light = min(1.0, 0.55 + light * 0.3);
 
   gl_FragColor = vec4(texture_color, 1.);
+  gl_FragColor.rgb *= light;
 }
