@@ -46,9 +46,6 @@ async function main() {
     uniforms: {
       texture: regl.texture({ data: image }),
       tick: regl.prop('tick'),
-
-      width: ({ viewportWidth, pixelRatio }) => viewportWidth / pixelRatio,
-      height: ({ viewportHeight, pixelRatio }) => viewportHeight / pixelRatio,
     },
     attributes: {
       // Two triangles that cover the whole clip space
