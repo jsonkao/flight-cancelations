@@ -17,17 +17,17 @@ async function getVertices() {
     .then(buffer => compute_vertices(buffer));
 }
 
-async function getImage() {
+async function getTexture(filename) {
   return new Promise(resolve => {
     const image = new Image();
-    image.src = `${base}/textures/specularity@2x.png`;
+    image.src = `${base}/textures/${filename}`;
     image.crossOrigin = '';
-    image.onload = () => resolve(image);
+    image.onload = () => resolve(regl.texture(image));
   });
 }
 
 async function main() {
-  const [vertices, image] = await Promise.all([getVertices(), getImage()]);
+  const [vertices, landTexture, monoTexture] = await Promise.all([getVertices(), getTexture('specularity@2x.png'), getTexture('mono@2x.png')]);
 
   const drawBorders = regl({
     frag: borderFrag,
@@ -44,7 +44,8 @@ async function main() {
     vert: textureVert,
 
     uniforms: {
-      texture: regl.texture({ data: image }),
+      landTexture,
+      monoTexture,
       tick: regl.prop('tick'),
       aspectRatio: ({ viewportWidth, viewportHeight }) => {
         const ar = viewportWidth / viewportHeight;

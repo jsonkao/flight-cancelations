@@ -2,7 +2,8 @@
 
 precision mediump float;
 
-uniform sampler2D texture;
+uniform sampler2D landTexture;
+uniform sampler2D monoTexture;
 uniform float tick;
 
 varying vec2 v_position;
@@ -41,16 +42,18 @@ void main() {
   // 3.5. Draw lat/lng lines
 
   // if (mod(longitude, PI / 360.) < 0.001) {
-    // gl_FragColor = vec4(0, 0, 0, 0.3);
-    // return;
+  // gl_FragColor = vec4(0, 0, 0, 0.3);
+  // return;
   // }
 
-  // 4. Grab the texture color and do some color stuffs. Black = land, white = no land.
+  // 4. Grab the texture color and do some color stuffs. Black = land, white =
+  // no land.
 
-  vec3 texture_color =
-      texture2D(texture, vec2(mod(longitude, 1.0), mod(latitude, 1.0))).rgb;
+  vec2 longlat = vec2(mod(longitude, 1.), mod(latitude, 1.));
+  vec3 texture_color = texture2D(landTexture, longlat).rgb;
+  vec3 mono_color = texture2D(monoTexture, longlat).rgb;
 
-  texture_color += vec3(208. / 255.);
+  texture_color += vec3(228. / 255.) * mono_color;
 
   gl_FragColor = vec4(texture_color, 1.);
 }
