@@ -12,6 +12,6 @@ void main() {
   v_fromChina = fromChina;
   v_position = position;
 
-  gl_PointSize = 10.;
+  gl_PointSize = 5.;
   gl_Position = vec4(position / aspectRatio, 0, 1);
 }

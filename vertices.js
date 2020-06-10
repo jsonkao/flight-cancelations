@@ -4,7 +4,7 @@ import { extent } from 'd3-array';
 // Orthographic projection
 
 function project(lon, lat) {
-  const azimuth = lon * (Math.PI / 180);
+  const azimuth = lon * (Math.PI / 180) - Math.PI / 2;
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
   const x = Math.sin(inclination) * Math.cos(azimuth);
@@ -38,13 +38,16 @@ export function compute_flight_paths(buffer) {
   }
 
   vertices = [];
-  airports.forEach(([lon, lat]) => {
+  let fromChina = [];
+  airports.forEach(([lon, lat, from_china]) => {
     const a = project(lon, lat);
-    a && vertices.push(...a);
+    if (a) {
+      vertices.push(...a);
+      fromChina.push(from_china);
+    }
   });
-  vertices.push(0, 0);
 
-  return new Float32Array(vertices);
+  return { vertices: new Float32Array(vertices), fromChina };
 }
 
 export function compute_vertices(buffer) {

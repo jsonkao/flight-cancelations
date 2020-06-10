@@ -58,16 +58,16 @@ async function main() {
   ]);
 
   const drawBorders = createLineDrawer(borders);
-
+  console.log('flights :>> ', flights);
   const drawFlights = regl({
     frag: pointsFrag,
     vert: pointsVert,
 
     uniforms: { aspectRatio, },
 
-    attributes: { position: flights, fromChina: flights.map((_, i) => airports[i % airports.length][2]) },
+    attributes: { position: flights.vertices, fromChina: flights.fromChina },
 
-    count: flights.length / 2,
+    count: flights.vertices.length / 2,
     primitive: 'points',
   })
 
@@ -102,8 +102,8 @@ async function main() {
       color: [0, 0, 0, 0],
       depth: 1,
     });
-    drawBorders();
     drawFlights();
+    drawBorders();
     drawTexture({ tick });
   });
 }
