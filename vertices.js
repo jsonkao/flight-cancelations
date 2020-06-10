@@ -4,7 +4,7 @@ import airports from './airports.json';
 function project(lon, lat) {
   const out = new Float32Array(2);
 
-  const azimuth = (lon + 90) * (Math.PI / 180);
+  const azimuth = lon * (Math.PI / 180);
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
   const y = Math.sin(inclination) * Math.sin(azimuth);
