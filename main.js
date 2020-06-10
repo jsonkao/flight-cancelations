@@ -52,6 +52,10 @@ function createLineDrawer(vertices) {
   });
 }
 
+const pointAttr = array => ({
+  buffer: regl.buffer(array),
+})
+
 async function main() {
   const [
     borders,
@@ -83,12 +87,12 @@ async function main() {
     },
 
     attributes: {
-      depart_point: flights.depart_points,
-      arrive_point: flights.arrive_points,
+      depart_point: pointAttr(flights.depart_points),
+      arrive_point: pointAttr(flights.arrive_points),
     },
 
-    count: flights.depart_points.length / 2,
-    primitive: 'points',
+    count: flights.depart_points.length / 3,
+    primitive: 'triangles',
   });
 
   const drawTexture = regl({

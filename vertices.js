@@ -34,8 +34,21 @@ export function compute_flight_paths(buffer) {
 
     if (!depart_point || !arrive_point) continue;
 
-    depart_points.push(...depart_point);
-    arrive_points.push(...arrive_point);
+    const [depart_x, depart_y] = depart_point;
+    const [arrive_x, arrive_y] = arrive_point;
+
+    const SIZE = 0.01;
+    const vector_angle = Math.atan2(arrive_y - depart_y, arrive_x - depart_x);
+
+    for (let j = 0; j < 3; j++) {
+      const theta = vector_angle - j * (2 / 3) * Math.PI;
+
+      const dx = SIZE * Math.cos(theta);
+      const dy = SIZE * Math.sin(theta);
+
+      depart_points.push(depart_x + dx, depart_y + dy);
+      arrive_points.push(arrive_x + dx, arrive_y + dy);
+    }
   }
 
   return {
