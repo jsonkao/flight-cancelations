@@ -1,9 +1,10 @@
 import airports from './airports.json';
 import { extent } from 'd3-array';
 
-// Equirectangular projection
+// Orthographic projection
+
 function project(lon, lat) {
-  const azimuth = lon * (Math.PI / 180) + Math.PI;
+  const azimuth = lon * (Math.PI / 180);
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
   const x = Math.sin(inclination) * Math.cos(azimuth);

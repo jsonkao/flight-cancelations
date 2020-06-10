@@ -13,53 +13,48 @@ float LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));
 
 void main() {
 
-  // Right now, we have v_position in [-1, 1] x [-1, 1]. Each fragment is
-  // a point on the sphere. We have to figure out the long-lat from that point
-  // to find the correct texture position.
-  // First we take Cartesian coordinates.
+  // The screen is the tangent plane. Each (x, y) we treat as an
+  // orthographically projected point of the front-facing hemisphere.
+  // The textures are equirectangular projections, which means the position of
+  // an image pixel is just the longitude-latitude.
+  // For each fragment, then, we must figure out the corresponding lat-long to
+  // retrieve the correct image pixel.
 
-  float y = v_position.x;
-  float z = v_position.y;
-  float hyp_squared = y * y + z * z;
+  // 1. Define the projected coordinates.
+  //    Discard fragments outside the great circle.
 
-  // 1. Discard points outside the sphere
+  float x = v_position.x;
+  float y = v_position.y;
+  float c = x * x + y * y; // Distance from center of orthographic projection
 
-  if (sqrt(hyp_squared) > 1.) {
+  if (sqrt(c) > 1.) {
     discard;
   }
 
-  // 2. Determine front-facing spherical coordinate
+  // 2. Invert projection to get spherical coordinates
 
-  float lambda_offset = tick / 400.;
+  float depth = sqrt(1. - c);        // Purposefully ignoring negative face
+  float longitude = atan(x / depth); // [-PI / 2, PI / 2]
+  float latitude = asin(y);          // [-PI / 2, PI / 2]
 
-  float x = sqrt(1. - hyp_squared); // Take positive face
-  float lambda = atan(y / x) + PI;       // [-PI / 2, PI / 2]
-  float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]
+  // 3. Do equirectangular projection to get plane/texture coordinates
+  //    For longitude: Map to [0.25, 0.75] (center is 0.5, range is 0.5)
+  //    For latitude: Map to [0, 1] (center is 0.5, range is 0.5)
 
-  // 3. Convert long-lat radians to long-lat
+  float texture_x = (longitude + PI) / (2. * PI);
+  float texture_y = (latitude + PI / 2.) / PI;
 
-  float longitude = (lambda + PI) / (2. * PI); // map to [0, 0.5]
-  float latitude = phi / PI + 0.5;             // map to [0, 1]
+  // 4. Grab texture colors. Black = land, white = no land.
 
-  // 3.5. Draw lat/lng lines
-
-  // if (mod(longitude, PI / 360.) < 0.001) {
-  //   gl_FragColor = vec4(0, 0, 0, 0.3);
-  //   return;
-  // }
-
-  // 4. Grab the texture color and do some color stuffs. Black = land, white =
-  // no land.
-
-  vec2 longlat = vec2(mod(longitude, 1.), mod(latitude, 1.));
-  vec3 texture_color = texture2D(landTexture, longlat).rgb;
-  vec3 mono_color = texture2D(monoTexture, longlat).rgb;
+  vec2 texture_position = vec2(texture_x, texture_y);
+  vec3 texture_color = texture2D(landTexture, texture_position).rgb;
+  vec3 mono_color = texture2D(monoTexture, texture_position).rgb;
 
   texture_color += vec3(240. / 255.) * mono_color;
 
-  // 5. Calculate lighting. Allow it to only impact a little bit.
+  // 5. Calculate lighting.
 
-  float dotted = dot(vec3(y, z, x), LIGHT_REVERSED) / LIGHT_MAG;
+  float dotted = dot(vec3(x, y, depth), LIGHT_REVERSED) / LIGHT_MAG;
   float light = sign(dotted) * pow(dotted, 1.2);
   light = min(1.0, 0.55 + light * 0.3);
 
