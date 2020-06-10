@@ -24,14 +24,18 @@ function project(lon, lat) {
 function equirectangular_project(lon, lat) {
   const out = new Float32Array(2);
 
-  const lon_radians = (lon + 90) * (Math.PI / 180);
-  const lat_radians = lat * (Math.PI / 180);
+  // lon ranges from around -140 to 140
+  // lat ranges from around -55 to 70
 
-  const x = Math.cos(lat_radians) * Math.cos(lon_radians);
-  const y = Math.sin(lat_radians);
+  const azimuth = lon * (Math.PI / 180);
+  const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
-  out[0] = lon;
-  out[1] = lat;
+  const x = Math.cos(inclination) * Math.sin(azimuth);
+  const y = Math.sin(inclination) * Math.sin(azimuth);
+  const z = Math.cos(inclination);
+
+  out[0] = y;
+  out[1] = z;
 
   return out;
 }
@@ -61,12 +65,5 @@ export function compute_vertices(buffer) {
     }
   }
 
-  let longs = [];
-  let lats = [];
-  vertices.forEach((v, i) => {
-    (i % 2 === 0 ? longs : lats).push(v);
-  });
-  console.log('longs', Math.min(...longs), Math.max(...longs));
-  console.log('lats', Math.min(...lats), Math.max(...lats));
   return new Float32Array(vertices);
 }

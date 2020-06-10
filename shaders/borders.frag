@@ -1,8 +1,5 @@
 precision mediump float;
 
-uniform float time;
-
 void main() {
-  // rotate2d(sin(time) * PI)
-  gl_FragColor = vec4(1, 0, 0, 1);
+  gl_FragColor = vec4(vec3(220. / 255.), 1.);
 }

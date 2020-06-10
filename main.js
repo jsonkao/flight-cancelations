@@ -9,7 +9,6 @@ import textureVert from './shaders/texture.vert';
 import spec from './specularity@2x.png';
 import mono from './mono@2x.png';
 
-
 const regl = createREGL();
 
 const base =
@@ -43,11 +42,17 @@ async function main() {
   const drawBorders = regl({
     frag: borderFrag,
     vert: borderVert,
+
+    uniforms: {
+      aspectRatio,
+    },
+
     attributes: {
       position: vertices,
     },
+
     count: vertices.length / 2,
-    primitive: 'points',
+    primitive: 'lines',
   });
 
   const drawTexture = regl({
@@ -58,11 +63,9 @@ async function main() {
       landTexture,
       monoTexture,
       tick: regl.prop('tick'),
-      aspectRatio: ({ viewportWidth, viewportHeight }) => {
-        const ar = viewportWidth / viewportHeight;
-        return ar > 1 ? [ar, 1] : [1, 1 / ar];
-      },
+      aspectRatio,
     },
+
     attributes: {
       // Two triangles that cover the whole clip space
       position: regl.buffer([
@@ -95,3 +98,8 @@ async function test() {
 }
 
 main().catch(console.error);
+
+function aspectRatio({ viewportWidth, viewportHeight }) {
+  const ar = viewportWidth / viewportHeight;
+  return ar > 1 ? [ar, 1] : [1, 1 / ar];
+}

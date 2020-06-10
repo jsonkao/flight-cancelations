@@ -8,7 +8,7 @@ uniform float tick;
 
 varying vec2 v_position;
 
-vec3 LIGHT_REVERSED = vec3(-1, 1, 1);
+vec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);
 float LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));
 
 void main() {
@@ -33,7 +33,7 @@ void main() {
   float lambda_offset = tick / 400.;
 
   float x = sqrt(1. - hyp_squared); // Take positive face
-  float lambda = atan(y / x) + lambda_offset;       // [-PI / 2, PI / 2]
+  float lambda = atan(y / x);       // [-PI / 2, PI / 2]
   float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]
 
   // 3. Convert long-lat radians to long-lat
@@ -61,7 +61,7 @@ void main() {
 
   float dotted = dot(vec3(y, z, x), LIGHT_REVERSED) / LIGHT_MAG;
   float light = sign(dotted) * pow(dotted, 1.2);
-  light = min(1.0, 0.35 + light * 0.3);
+  light = min(1.0, 0.55 + light * 0.3);
 
   gl_FragColor = vec4(texture_color, 1.);
   gl_FragColor.rgb *= light;
