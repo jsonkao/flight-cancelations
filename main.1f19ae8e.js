@@ -10184,23 +10184,1595 @@ return wrapREGL;
 })));
 
 
-},{}],"vertices.js":[function(require,module,exports) {
+},{}],"airports.json":[function(require,module,exports) {
+module.exports = [[116.585, 40.0801, 0], [28.8146, 40.9769, 0], [121.805, 31.1434, 1], [-79.6306, 43.6772, 0], [-73.7408, 45.4706, 0], [121.336, 31.1979, 1], [120.374, 36.2661, 1], [106.3327, 27.8164, 1], [-118.408, 33.9425, 0], [-73.7789, 40.6398, 0], [114.208, 30.7838, 1], [113.299, 23.3924, 1], [-77.4558, 38.9445, 0], [151.177, -33.9461, 0], [123.483, 41.6398, 1], [118.8736, 34.5717, 1], [103.947, 30.5785, 1], [117.216, 36.8572, 1], [-122.375, 37.619, 0], [120.9872, 37.6572, 1], [38.7993, 8.9779, 0], [51.1522, 35.4161, 0], [113.811, 22.6393, 1], [102.9292, 25.1019, 1], [55.3644, 25.2528, 0], [113.22, 28.1892, 1], [73.5291, 4.1918, 0], [28.7519, 41.2753, 0], [-89.9767, 35.0424, 0], [31.4056, 30.1219, 0], [136.407, 36.3946, 0], [54.6511, 24.433, 0], [103.994, 1.3502, 0], [8.5706, 50.0333, 0], [120.434, 30.2295, 1], [51.6081, 25.2731, 0], [108.752, 34.4471, 1], [138.531, -34.945, 0], [2.55, 49.0128, 0], [103.62, 36.5152, 1], [109.294, 21.5394, 1], [-123.184, 49.1939, 0], [174.792, -37.0081, 0], [12.2389, 41.8003, 0], [119.663, 25.9351, 1], [4.7639, 52.3086, 0], [79.8841, 7.1808, 0], [11.6903, 48.1378, 0], [50.0467, 40.4675, 0], [172.532, -43.4894, 0], [153.117, -27.3842, 0], [144.843, -37.6733, 0], [106.642, 29.7192, 1], [113.841, 34.5197, 1], [-3.5626, 40.4719, 0], [122.362, 29.9342, 1], [-9.1359, 38.7813, 0], [37.4146, 55.9726, 0], [24.9633, 60.3172, 0], [16.5697, 48.1103, 0], [2.0785, 41.2971, 0], [-0.1903, 51.1481, 0], [110.459, 19.9349, 1], [130.2706, 30.7847, 0], [8.7281, 45.6306, 0], [101.71, 2.7456, 0], [4.4844, 50.9014, 0], [109.412, 18.3029, 1], [-2.275, 53.3537, 0], [126.25, 45.6234, 1], [60.8027, 56.7431, 0], [6.109, 46.2381, 0], [44.2346, 33.2625, 0], [92.4933, 56.1729, 0], [103.813, 13.4107, 0], [77.0405, 43.3521, 0], [82.6507, 55.0126, 0], [71.4669, 51.0222, 0], [103.637, 10.5797, 0], [114.1981, 22.3203, 0], [-149.996, 61.1744, 0], [117.346, 39.1244, 1], [98.3169, 8.1132, 0], [135.244, 34.4273, 0], [140.386, 35.7647, 0], [6.2044, 49.6233, 0], [100.747, 13.6811, 0], [88.4467, 22.6547, 0], [104.389, 52.268, 0], [127.412, 50.4254, 0], [72.8679, 19.0887, 0], [124.926, 1.5493, 0], [77.1031, 28.5665, 0], [122.376, 11.6794, 0], [90.3978, 23.8433, 0], [118.862, 31.742, 1], [7.1427, 50.8659, 0], [100.062, 9.5478, 0], [100.607, 13.9126, 0], [5.4432, 50.6374, 0], [115.9, 28.865, 1], [74.4776, 43.0613, 0], [136.805, 34.8584, 0], [56.0212, 57.9145, 0], [98.9626, 18.7668, 0], [104.844, 11.5466, 0], [113.376, 22.0064, 1], [112.388, 34.7411, 1], [80.1693, 12.99, 0], [116.4109, 39.5099, 1], [12.2364, 51.4239, 0], [127.4987, 36.717, 0], [118.128, 24.544, 1], [119.3244, 35.405, 1], [125.685, 43.9962, 1], [114.928, 4.9442, 0], [114.697, 38.2807, 1], [104.741, 31.4281, 1], [106.801, 26.5385, 1], [112.628, 37.7469, 1], [102.184, 27.9891, 1], [121.02, 14.5086, 0], [120.852, 27.9122, 1], [120.032, 29.3447, 1], [129.569, 44.5241, 1], [100.76, 21.9739, 1], [119.779, 31.9197, 1], [100.319, 25.6494, 1], [118.59, 24.7964, 1], [116.5033, 23.552, 1], [86.1289, 41.6978, 1], [121.539, 38.9657, 1], [106.3932, 38.3228, 1], [112.628, 26.9053, 1], [118.001, 27.7019, 1], [119.7198, 32.5634, 1], [109.485, 30.3203, 1], [120.429, 31.4944, 1], [117.298, 31.78, 1], [120.2031, 33.4258, 1], [114.93, 40.7386, 1], [121.462, 29.8267, 1], [127.6022, 42.0669, 1], [87.4742, 43.9071, 1], [102.043, 36.5275, 1], [108.172, 22.6083, 1], [111.824, 40.8514, 1], [105.393, 28.8522, 1], [114.3062, 27.8025, 1], [118.908, 42.235, 1], [109.391, 24.2075, 1], [117.5553, 34.0591, 1], [110.358, 21.2144, 1], [57.6836, -20.4302, 0], [111.6412, 36.1326, 1], [114.6, 23.05, 1], [106.1626, 30.7954, 1], [117.6856, 30.7403, 1], [105.702, 32.3911, 1], [79.8649, 37.0385, 1], [107.603, 35.7997, 1], [58.2844, 23.5933, 0], [114.7789, 25.8533, 1], [111.48, 30.5566, 1], [118.899, 28.9658, 1], [119.825, 49.205, 1], [115.167, -8.7482, 0], [100.246, 26.68, 1], [105.1545, 37.5731, 1], [113.278, 29.314, 1], [106.652, 10.8188, 0], [104.545, 28.8006, 1], [118.412, 35.0461, 1], [115.7344, 32.8822, 1], [105.86, 34.5594, 1], [84.9527, 45.4665, 1], [55.8744, 54.5575, 0], [101.7985, 26.54, 1], [117.05, 30.5822, 1], [110.039, 25.2181, 1], [107.0007, 27.5895, 1], [98.5317, 24.4011, 1], [112.9692, 38.5975, 1], [110.443, 29.1028, 1], [112.291, 32.1506, 1], [122.229, 37.1871, 1], [111.64, 28.9189, 1], [113.482, 40.0603, 1], [119.119, 36.6467, 1], [118.256, 29.7333, 1], [120.976, 32.0708, 1], [108.433, 30.8017, 1], [140.415, 36.1811, 0], [119.125, 33.7908, 1], [109.8614, 39.49, 1], [107.206, 33.1341, 1], [99.1683, 25.0533, 1], [117.8336, 26.4263, 1], [106.7993, 39.7934, 1], [105.5886, 38.7483, 1], [109.5909, 38.3597, 1], [109.554, 36.6369, 1], [119.0589, 39.6664, 1], [122.854, 41.1053, 1], [111.0314, 35.1164, 1], [114.737, 26.8569, 1], [109.3089, 27.8833, 1], [129.451, 42.8828, 1], [117.9643, 28.3797, 1], [118.788, 37.5086, 1], [121.233, 25.0777, 0], [104.9594, 25.0864, 1], [107.4295, 31.1302, 1], [126.493, 33.5113, 0], [120.56, 15.186, 0], [98.4858, 24.9381, 1], [113.07, 23.0833, 1], [114.0791, 32.5408, 1], [94.3353, 29.3033, 1], [110.4548, 19.1382, 1], [131.193, 45.293, 1], [99.3736, 23.2739, 1], [80.2917, 41.2625, 1], [90.9119, 29.2978, 1], [55.1614, 24.8964, 0], [117.33, 49.5667, 1], [113.592, 22.1496, 0], [95.9779, 21.7022, 0], [117.176, 29.3386, 1], [81.3303, 43.9558, 1], [121.429, 28.5622, 1], [112.615, 32.9808, 1], [100.7593, 27.5403, 1], [106.2169, 36.0789, 1], [113.126, 36.2475, 1], [123.918, 47.2396, 1], [121.062, 41.1014, 1], [93.6692, 42.8414, 1], [110.642, 26.802, 1], [141.692, 42.7752, 0], [126.451, 37.4691, 0], [125.1406, 46.7464, 1], [106.6449, 31.7384, 1], [76.02, 39.5429, 1], [82.8729, 41.6779, 1], [116.133, 24.35, 1], [111.248, 23.4567, 1], [105.807, 21.2212, 0], [127.646, 26.1958, 0], [105.8733, 26.2606, 1], [111.1428, 37.6833, 1], [118.0026, 39.7178, 1], [122.0083, 46.1953, 1], [109.219, 11.9982, 0], [126.791, 37.5583, 0], [102.3483, 38.5422, 1], [100.3011, 34.4181, 1], [106.767, 47.8431, 0], [110.9078, 32.5917, 1], [106.656, -6.1256, 0], [122.7675, 47.8658, 1], [106.96, 23.7206, 1], [145.729, 15.119, 0], [128.6553, 35.8969, 0], [139.78, 35.5523, 0], [100.959, 22.7933, 1], [109.7, 27.4411, 1], [85.3591, 27.6966, 0], [105.4721, 27.2671, 1], [99.8829, 19.9523, 0], [100.025, 23.7381, 1], [138.1878, 34.796, 0], [99.7864, 22.4158, 1], [128.938, 35.1795, 0], [118.0739, 41.1225, 1], [108.8311, 29.5133, 1], [102.563, 17.9883, 0], [112.0967, 43.4225, 1], [96.1332, 16.9073, 0], [134.016, 34.2142, 0], [103.755, 27.3256, 1], [109.997, 40.56, 1], [107.7428, 40.926, 1], [121.552, 25.0694, 0], [115.964, 43.9156, 1], [89.0987, 43.0308, 1], [116.051, 5.9372, 0], [-0.4619, 51.4706, 0], [105.797, 33.788, 1], [-95.3414, 29.9844, 0], [74.4036, 31.5216, 0], [122.3586, 40.5425, 1], [99.5543, 31.7574, 1], [123.0197, 45.5053, 1], [130.465, 46.8434, 1], [122.2, 43.5567, 1], [100.0533, 29.3231, 1], [113.1081, 41.1297, 1], [94.8092, 40.1611, 1], [120.35, 22.5771, 0], [130.451, 33.5859, 0], [98.3414, 39.8569, 1], [8.5492, 47.4647, 0], [132.6603, 47.11, 1], [89.3114, 29.3519, 1], [99.6772, 27.7936, 1], [102.3522, 32.5315, 1], [116.747, 25.6747, 1], [134.3664, 48.1995, 1], [113.306, 52.0263, 0], [116.3467, 35.2928, 1], [127.3089, 50.1716, 1], [97.0364, 32.8364, 1], [123.979, 10.3075, 0], [98.9862, 8.0991, 0], [129.0191, 47.7521, 1], [131.737, 33.4794, 0], [88.0858, 47.7499, 1], [-74.1687, 40.6925, 0], [126.133, 48.445, 1], [101.005, 12.6799, 0], [-83.3534, 42.2124, 0], [100.675, 38.8019, 1], [124.286, 40.0247, 1], [125.7033, 42.2539, 1], [97.1083, 30.5536, 1], [-87.9048, 41.9786, 0], [-84.4281, 33.6367, 0], [-122.309, 47.449, 0], [94.7861, 36.4006, 1], [104.979, 26.6094, 1], [-71.0052, 42.3643, 0], [114.35, 30.7, 1], [104.3255, 23.5583, 1], [120.435, 41.5381, 1], [108.199, 16.0439, 0], [112.345, 16.8336, 1], [126.3828, 34.9914, 0], [114.4256, 36.5258, 1], [12.656, 55.6179, 0], [-122.302, 47.53, 0], [102.161, 19.8973, 0], [46.6988, 24.9576, 0], [19.2611, 47.4298, 0], [17.9186, 59.6519, 0], [88.0083, 38.9747, 1], [77.0752, 38.2811, 1], [14.26, 50.1008, 0], [116.388, 39.7828, 1], [20.9671, 52.1657, 0], [100.277, 5.2971, 0], [133.855, 34.7569, 0], [120.621, 24.2647, 0], [132.919, 34.4361, 0], [103.9931, 10.1698, 0], [-97.038, 32.8968, 0], [101.549, 3.1306, 0], [107.988, 26.972, 1], [44.9547, 41.6692, 0], [-157.9242, 21.3206, 0], [103.6822, 32.8533, 1], [106.725, 20.8194, 0], [34.8867, 32.0114, 0], [145.755, -16.8858, 0], [36.9278, -1.3192, 0], [28.246, -26.1392, 0], [69.2812, 41.2579, 0], [99.7287, 6.3297, 0], [142.718, 46.8887, 0], [0.235, 51.885, 0], [115.967, -31.9403, 0], [130.877, -12.4147, 0], [104.119, 1.121, 0], [132.148, 43.399, 0], [103.67, 1.6413, 0], [123.8535, 9.6654, 0], [37.9063, 55.4088, 0], [37.2615, 55.5915, 0], [49.2787, 55.6062, 0], [30.8947, 50.345, 0], [130.302, 33.1497, 0], [119.9117, 47.3106, 1], [109.706, 31.064, 1]];
+},{}],"node_modules/d3-array/src/ascending.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = _default;
+
+function _default(a, b) {
+  return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+}
+},{}],"node_modules/d3-array/src/bisector.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(compare) {
+  if (compare.length === 1) compare = ascendingComparator(compare);
+  return {
+    left: function (a, x, lo, hi) {
+      if (lo == null) lo = 0;
+      if (hi == null) hi = a.length;
+
+      while (lo < hi) {
+        var mid = lo + hi >>> 1;
+        if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+      }
+
+      return lo;
+    },
+    right: function (a, x, lo, hi) {
+      if (lo == null) lo = 0;
+      if (hi == null) hi = a.length;
+
+      while (lo < hi) {
+        var mid = lo + hi >>> 1;
+        if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+      }
+
+      return lo;
+    }
+  };
+}
+
+function ascendingComparator(f) {
+  return function (d, x) {
+    return (0, _ascending.default)(f(d), x);
+  };
+}
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js"}],"node_modules/d3-array/src/bisect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.bisectLeft = exports.bisectRight = void 0;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+var _bisector = _interopRequireDefault(require("./bisector.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ascendingBisect = (0, _bisector.default)(_ascending.default);
+var bisectRight = ascendingBisect.right;
+exports.bisectRight = bisectRight;
+var bisectLeft = ascendingBisect.left;
+exports.bisectLeft = bisectLeft;
+var _default = bisectRight;
+exports.default = _default;
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js","./bisector.js":"node_modules/d3-array/src/bisector.js"}],"node_modules/d3-array/src/count.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = count;
+
+function count(values, valueof) {
+  let count = 0;
+
+  if (valueof === undefined) {
+    for (let value of values) {
+      if (value != null && (value = +value) >= value) {
+        ++count;
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+        ++count;
+      }
+    }
+  }
+
+  return count;
+}
+},{}],"node_modules/d3-array/src/cross.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = cross;
+
+function length(array) {
+  return array.length | 0;
+}
+
+function empty(length) {
+  return !(length > 0);
+}
+
+function arrayify(values) {
+  return typeof values !== "object" || "length" in values ? values : Array.from(values);
+}
+
+function reducer(reduce) {
+  return values => reduce(...values);
+}
+
+function cross(...values) {
+  const reduce = typeof values[values.length - 1] === "function" && reducer(values.pop());
+  values = values.map(arrayify);
+  const lengths = values.map(length);
+  const j = values.length - 1;
+  const index = new Array(j + 1).fill(0);
+  const product = [];
+  if (j < 0 || lengths.some(empty)) return product;
+
+  while (true) {
+    product.push(index.map((j, i) => values[i][j]));
+    let i = j;
+
+    while (++index[i] === lengths[i]) {
+      if (i === 0) return reduce ? product.map(reduce) : product;
+      index[i--] = 0;
+    }
+  }
+}
+},{}],"node_modules/d3-array/src/cumsum.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = cumsum;
+
+function cumsum(values, valueof) {
+  var sum = 0,
+      index = 0;
+  return Float64Array.from(values, valueof === undefined ? v => sum += +v || 0 : v => sum += +valueof(v, index++, values) || 0);
+}
+},{}],"node_modules/d3-array/src/descending.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(a, b) {
+  return b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;
+}
+},{}],"node_modules/d3-array/src/variance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = variance;
+
+function variance(values, valueof) {
+  let count = 0;
+  let delta;
+  let mean = 0;
+  let sum = 0;
+
+  if (valueof === undefined) {
+    for (let value of values) {
+      if (value != null && (value = +value) >= value) {
+        delta = value - mean;
+        mean += delta / ++count;
+        sum += delta * (value - mean);
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+        delta = value - mean;
+        mean += delta / ++count;
+        sum += delta * (value - mean);
+      }
+    }
+  }
+
+  if (count > 1) return sum / (count - 1);
+}
+},{}],"node_modules/d3-array/src/deviation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = deviation;
+
+var _variance = _interopRequireDefault(require("./variance.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function deviation(values, valueof) {
+  const v = (0, _variance.default)(values, valueof);
+  return v ? Math.sqrt(v) : v;
+}
+},{"./variance.js":"node_modules/d3-array/src/variance.js"}],"node_modules/d3-array/src/extent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(values, valueof) {
+  let min;
+  let max;
+
+  if (valueof === undefined) {
+    for (const value of values) {
+      if (value != null) {
+        if (min === undefined) {
+          if (value >= value) min = max = value;
+        } else {
+          if (min > value) min = value;
+          if (max < value) max = value;
+        }
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null) {
+        if (min === undefined) {
+          if (value >= value) min = max = value;
+        } else {
+          if (min > value) min = value;
+          if (max < value) max = value;
+        }
+      }
+    }
+  }
+
+  return [min, max];
+}
+},{}],"node_modules/d3-array/src/identity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(x) {
+  return x;
+}
+},{}],"node_modules/d3-array/src/group.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = group;
+exports.groups = groups;
+exports.rollup = rollup;
+exports.rollups = rollups;
+
+var _identity = _interopRequireDefault(require("./identity.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function group(values, ...keys) {
+  return nest(values, _identity.default, _identity.default, keys);
+}
+
+function groups(values, ...keys) {
+  return nest(values, Array.from, _identity.default, keys);
+}
+
+function rollup(values, reduce, ...keys) {
+  return nest(values, _identity.default, reduce, keys);
+}
+
+function rollups(values, reduce, ...keys) {
+  return nest(values, Array.from, reduce, keys);
+}
+
+function nest(values, map, reduce, keys) {
+  return function regroup(values, i) {
+    if (i >= keys.length) return reduce(values);
+    const groups = new Map();
+    const keyof = keys[i++];
+    let index = -1;
+
+    for (const value of values) {
+      const key = keyof(value, ++index, values);
+      const group = groups.get(key);
+      if (group) group.push(value);else groups.set(key, [value]);
+    }
+
+    for (const [key, values] of groups) {
+      groups.set(key, regroup(values, i));
+    }
+
+    return map(groups);
+  }(values, 0);
+}
+},{"./identity.js":"node_modules/d3-array/src/identity.js"}],"node_modules/d3-array/src/array.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.map = exports.slice = void 0;
+var array = Array.prototype;
+var slice = array.slice;
+exports.slice = slice;
+var map = array.map;
+exports.map = map;
+},{}],"node_modules/d3-array/src/constant.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(x) {
+  return function () {
+    return x;
+  };
+}
+},{}],"node_modules/d3-array/src/range.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(start, stop, step) {
+  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+  var i = -1,
+      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+      range = new Array(n);
+
+  while (++i < n) {
+    range[i] = start + i * step;
+  }
+
+  return range;
+}
+},{}],"node_modules/d3-array/src/ticks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+exports.tickIncrement = tickIncrement;
+exports.tickStep = tickStep;
+var e10 = Math.sqrt(50),
+    e5 = Math.sqrt(10),
+    e2 = Math.sqrt(2);
+
+function _default(start, stop, count) {
+  var reverse,
+      i = -1,
+      n,
+      ticks,
+      step;
+  stop = +stop, start = +start, count = +count;
+  if (start === stop && count > 0) return [start];
+  if (reverse = stop < start) n = start, start = stop, stop = n;
+  if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) return [];
+
+  if (step > 0) {
+    start = Math.ceil(start / step);
+    stop = Math.floor(stop / step);
+    ticks = new Array(n = Math.ceil(stop - start + 1));
+
+    while (++i < n) ticks[i] = (start + i) * step;
+  } else {
+    start = Math.floor(start * step);
+    stop = Math.ceil(stop * step);
+    ticks = new Array(n = Math.ceil(start - stop + 1));
+
+    while (++i < n) ticks[i] = (start - i) / step;
+  }
+
+  if (reverse) ticks.reverse();
+  return ticks;
+}
+
+function tickIncrement(start, stop, count) {
+  var step = (stop - start) / Math.max(0, count),
+      power = Math.floor(Math.log(step) / Math.LN10),
+      error = step / Math.pow(10, power);
+  return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+}
+
+function tickStep(start, stop, count) {
+  var step0 = Math.abs(stop - start) / Math.max(0, count),
+      step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
+      error = step0 / step1;
+  if (error >= e10) step1 *= 10;else if (error >= e5) step1 *= 5;else if (error >= e2) step1 *= 2;
+  return stop < start ? -step1 : step1;
+}
+},{}],"node_modules/d3-array/src/threshold/sturges.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _count = _interopRequireDefault(require("../count.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(values) {
+  return Math.ceil(Math.log((0, _count.default)(values)) / Math.LN2) + 1;
+}
+},{"../count.js":"node_modules/d3-array/src/count.js"}],"node_modules/d3-array/src/bin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _array = require("./array.js");
+
+var _bisect = _interopRequireDefault(require("./bisect.js"));
+
+var _constant = _interopRequireDefault(require("./constant.js"));
+
+var _extent = _interopRequireDefault(require("./extent.js"));
+
+var _identity = _interopRequireDefault(require("./identity.js"));
+
+var _range = _interopRequireDefault(require("./range.js"));
+
+var _ticks = require("./ticks.js");
+
+var _sturges = _interopRequireDefault(require("./threshold/sturges.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default() {
+  var value = _identity.default,
+      domain = _extent.default,
+      threshold = _sturges.default;
+
+  function histogram(data) {
+    if (!Array.isArray(data)) data = Array.from(data);
+    var i,
+        n = data.length,
+        x,
+        values = new Array(n);
+
+    for (i = 0; i < n; ++i) {
+      values[i] = value(data[i], i, data);
+    }
+
+    var xz = domain(values),
+        x0 = xz[0],
+        x1 = xz[1],
+        tz = threshold(values, x0, x1); // Convert number of thresholds into uniform thresholds.
+
+    if (!Array.isArray(tz)) {
+      tz = (0, _ticks.tickStep)(x0, x1, tz);
+      tz = (0, _range.default)(Math.ceil(x0 / tz) * tz, x1, tz); // exclusive
+    } // Remove any thresholds outside the domain.
+
+
+    var m = tz.length;
+
+    while (tz[0] <= x0) tz.shift(), --m;
+
+    while (tz[m - 1] > x1) tz.pop(), --m;
+
+    var bins = new Array(m + 1),
+        bin; // Initialize bins.
+
+    for (i = 0; i <= m; ++i) {
+      bin = bins[i] = [];
+      bin.x0 = i > 0 ? tz[i - 1] : x0;
+      bin.x1 = i < m ? tz[i] : x1;
+    } // Assign data to bins by value, ignoring any outside the domain.
+
+
+    for (i = 0; i < n; ++i) {
+      x = values[i];
+
+      if (x0 <= x && x <= x1) {
+        bins[(0, _bisect.default)(tz, x, 0, m)].push(data[i]);
+      }
+    }
+
+    return bins;
+  }
+
+  histogram.value = function (_) {
+    return arguments.length ? (value = typeof _ === "function" ? _ : (0, _constant.default)(_), histogram) : value;
+  };
+
+  histogram.domain = function (_) {
+    return arguments.length ? (domain = typeof _ === "function" ? _ : (0, _constant.default)([_[0], _[1]]), histogram) : domain;
+  };
+
+  histogram.thresholds = function (_) {
+    return arguments.length ? (threshold = typeof _ === "function" ? _ : Array.isArray(_) ? (0, _constant.default)(_array.slice.call(_)) : (0, _constant.default)(_), histogram) : threshold;
+  };
+
+  return histogram;
+}
+},{"./array.js":"node_modules/d3-array/src/array.js","./bisect.js":"node_modules/d3-array/src/bisect.js","./constant.js":"node_modules/d3-array/src/constant.js","./extent.js":"node_modules/d3-array/src/extent.js","./identity.js":"node_modules/d3-array/src/identity.js","./range.js":"node_modules/d3-array/src/range.js","./ticks.js":"node_modules/d3-array/src/ticks.js","./threshold/sturges.js":"node_modules/d3-array/src/threshold/sturges.js"}],"node_modules/d3-array/src/max.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = max;
+
+function max(values, valueof) {
+  let max;
+
+  if (valueof === undefined) {
+    for (const value of values) {
+      if (value != null && (max < value || max === undefined && value >= value)) {
+        max = value;
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (max < value || max === undefined && value >= value)) {
+        max = value;
+      }
+    }
+  }
+
+  return max;
+}
+},{}],"node_modules/d3-array/src/min.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = min;
+
+function min(values, valueof) {
+  let min;
+
+  if (valueof === undefined) {
+    for (const value of values) {
+      if (value != null && (min > value || min === undefined && value >= value)) {
+        min = value;
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (min > value || min === undefined && value >= value)) {
+        min = value;
+      }
+    }
+  }
+
+  return min;
+}
+},{}],"node_modules/d3-array/src/quickselect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = quickselect;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Based on https://github.com/mourner/quickselect
+// ISC license, Copyright 2018 Vladimir Agafonkin.
+function quickselect(array, k, left = 0, right = array.length - 1, compare = _ascending.default) {
+  while (right > left) {
+    if (right - left > 600) {
+      const n = right - left + 1;
+      const m = k - left + 1;
+      const z = Math.log(n);
+      const s = 0.5 * Math.exp(2 * z / 3);
+      const sd = 0.5 * Math.sqrt(z * s * (n - s) / n) * (m - n / 2 < 0 ? -1 : 1);
+      const newLeft = Math.max(left, Math.floor(k - m * s / n + sd));
+      const newRight = Math.min(right, Math.floor(k + (n - m) * s / n + sd));
+      quickselect(array, k, newLeft, newRight, compare);
+    }
+
+    const t = array[k];
+    let i = left;
+    let j = right;
+    swap(array, left, k);
+    if (compare(array[right], t) > 0) swap(array, left, right);
+
+    while (i < j) {
+      swap(array, i, j), ++i, --j;
+
+      while (compare(array[i], t) < 0) ++i;
+
+      while (compare(array[j], t) > 0) --j;
+    }
+
+    if (compare(array[left], t) === 0) swap(array, left, j);else ++j, swap(array, j, right);
+    if (j <= k) left = j + 1;
+    if (k <= j) right = j - 1;
+  }
+
+  return array;
+}
+
+function swap(array, i, j) {
+  const t = array[i];
+  array[i] = array[j];
+  array[j] = t;
+}
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js"}],"node_modules/d3-array/src/number.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+exports.numbers = numbers;
+
+function _default(x) {
+  return x === null ? NaN : +x;
+}
+
+function* numbers(values, valueof) {
+  if (valueof === undefined) {
+    for (let value of values) {
+      if (value != null && (value = +value) >= value) {
+        yield value;
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+        yield value;
+      }
+    }
+  }
+}
+},{}],"node_modules/d3-array/src/quantile.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = quantile;
+exports.quantileSorted = quantileSorted;
+
+var _max = _interopRequireDefault(require("./max.js"));
+
+var _min = _interopRequireDefault(require("./min.js"));
+
+var _quickselect = _interopRequireDefault(require("./quickselect.js"));
+
+var _number = _interopRequireWildcard(require("./number.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function quantile(values, p, valueof) {
+  values = Float64Array.from((0, _number.numbers)(values, valueof));
+  if (!(n = values.length)) return;
+  if ((p = +p) <= 0 || n < 2) return (0, _min.default)(values);
+  if (p >= 1) return (0, _max.default)(values);
+  var n,
+      i = (n - 1) * p,
+      i0 = Math.floor(i),
+      value0 = (0, _max.default)((0, _quickselect.default)(values, i0).subarray(0, i0 + 1)),
+      value1 = (0, _min.default)(values.subarray(i0 + 1));
+  return value0 + (value1 - value0) * (i - i0);
+}
+
+function quantileSorted(values, p, valueof = _number.default) {
+  if (!(n = values.length)) return;
+  if ((p = +p) <= 0 || n < 2) return +valueof(values[0], 0, values);
+  if (p >= 1) return +valueof(values[n - 1], n - 1, values);
+  var n,
+      i = (n - 1) * p,
+      i0 = Math.floor(i),
+      value0 = +valueof(values[i0], i0, values),
+      value1 = +valueof(values[i0 + 1], i0 + 1, values);
+  return value0 + (value1 - value0) * (i - i0);
+}
+},{"./max.js":"node_modules/d3-array/src/max.js","./min.js":"node_modules/d3-array/src/min.js","./quickselect.js":"node_modules/d3-array/src/quickselect.js","./number.js":"node_modules/d3-array/src/number.js"}],"node_modules/d3-array/src/threshold/freedmanDiaconis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _count = _interopRequireDefault(require("../count.js"));
+
+var _quantile = _interopRequireDefault(require("../quantile.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(values, min, max) {
+  return Math.ceil((max - min) / (2 * ((0, _quantile.default)(values, 0.75) - (0, _quantile.default)(values, 0.25)) * Math.pow((0, _count.default)(values), -1 / 3)));
+}
+},{"../count.js":"node_modules/d3-array/src/count.js","../quantile.js":"node_modules/d3-array/src/quantile.js"}],"node_modules/d3-array/src/threshold/scott.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _count = _interopRequireDefault(require("../count.js"));
+
+var _deviation = _interopRequireDefault(require("../deviation.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(values, min, max) {
+  return Math.ceil((max - min) / (3.5 * (0, _deviation.default)(values) * Math.pow((0, _count.default)(values), -1 / 3)));
+}
+},{"../count.js":"node_modules/d3-array/src/count.js","../deviation.js":"node_modules/d3-array/src/deviation.js"}],"node_modules/d3-array/src/maxIndex.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = maxIndex;
+
+function maxIndex(values, valueof) {
+  let max;
+  let maxIndex = -1;
+  let index = -1;
+
+  if (valueof === undefined) {
+    for (const value of values) {
+      ++index;
+
+      if (value != null && (max < value || max === undefined && value >= value)) {
+        max = value, maxIndex = index;
+      }
+    }
+  } else {
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (max < value || max === undefined && value >= value)) {
+        max = value, maxIndex = index;
+      }
+    }
+  }
+
+  return maxIndex;
+}
+},{}],"node_modules/d3-array/src/mean.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = mean;
+
+function mean(values, valueof) {
+  let count = 0;
+  let sum = 0;
+
+  if (valueof === undefined) {
+    for (let value of values) {
+      if (value != null && (value = +value) >= value) {
+        ++count, sum += value;
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+        ++count, sum += value;
+      }
+    }
+  }
+
+  if (count) return sum / count;
+}
+},{}],"node_modules/d3-array/src/median.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _quantile = _interopRequireDefault(require("./quantile.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(values, valueof) {
+  return (0, _quantile.default)(values, 0.5, valueof);
+}
+},{"./quantile.js":"node_modules/d3-array/src/quantile.js"}],"node_modules/d3-array/src/merge.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = merge;
+
+function* flatten(arrays) {
+  for (const array of arrays) {
+    yield* array;
+  }
+}
+
+function merge(arrays) {
+  return Array.from(flatten(arrays));
+}
+},{}],"node_modules/d3-array/src/minIndex.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = minIndex;
+
+function minIndex(values, valueof) {
+  let min;
+  let minIndex = -1;
+  let index = -1;
+
+  if (valueof === undefined) {
+    for (const value of values) {
+      ++index;
+
+      if (value != null && (min > value || min === undefined && value >= value)) {
+        min = value, minIndex = index;
+      }
+    }
+  } else {
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null && (min > value || min === undefined && value >= value)) {
+        min = value, minIndex = index;
+      }
+    }
+  }
+
+  return minIndex;
+}
+},{}],"node_modules/d3-array/src/pairs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = pairs;
+exports.pair = pair;
+
+function pairs(values, pairof = pair) {
+  const pairs = [];
+  let previous;
+  let first = false;
+
+  for (const value of values) {
+    if (first) pairs.push(pairof(previous, value));
+    previous = value;
+    first = true;
+  }
+
+  return pairs;
+}
+
+function pair(a, b) {
+  return [a, b];
+}
+},{}],"node_modules/d3-array/src/permute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(source, keys) {
+  return Array.from(keys, key => source[key]);
+}
+},{}],"node_modules/d3-array/src/least.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = least;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function least(values, compare = _ascending.default) {
+  let min;
+  let defined = false;
+
+  if (compare.length === 1) {
+    let minValue;
+
+    for (const element of values) {
+      const value = compare(element);
+
+      if (defined ? (0, _ascending.default)(value, minValue) < 0 : (0, _ascending.default)(value, value) === 0) {
+        min = element;
+        minValue = value;
+        defined = true;
+      }
+    }
+  } else {
+    for (const value of values) {
+      if (defined ? compare(value, min) < 0 : compare(value, value) === 0) {
+        min = value;
+        defined = true;
+      }
+    }
+  }
+
+  return min;
+}
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js"}],"node_modules/d3-array/src/leastIndex.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = leastIndex;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+var _minIndex = _interopRequireDefault(require("./minIndex.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function leastIndex(values, compare = _ascending.default) {
+  if (compare.length === 1) return (0, _minIndex.default)(values, compare);
+  let minValue;
+  let min = -1;
+  let index = -1;
+
+  for (const value of values) {
+    ++index;
+
+    if (min < 0 ? compare(value, value) === 0 : compare(value, minValue) < 0) {
+      minValue = value;
+      min = index;
+    }
+  }
+
+  return min;
+}
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js","./minIndex.js":"node_modules/d3-array/src/minIndex.js"}],"node_modules/d3-array/src/greatest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = greatest;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function greatest(values, compare = _ascending.default) {
+  let max;
+  let defined = false;
+
+  if (compare.length === 1) {
+    let maxValue;
+
+    for (const element of values) {
+      const value = compare(element);
+
+      if (defined ? (0, _ascending.default)(value, maxValue) > 0 : (0, _ascending.default)(value, value) === 0) {
+        max = element;
+        maxValue = value;
+        defined = true;
+      }
+    }
+  } else {
+    for (const value of values) {
+      if (defined ? compare(value, max) > 0 : compare(value, value) === 0) {
+        max = value;
+        defined = true;
+      }
+    }
+  }
+
+  return max;
+}
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js"}],"node_modules/d3-array/src/greatestIndex.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = greatestIndex;
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+var _maxIndex = _interopRequireDefault(require("./maxIndex.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function greatestIndex(values, compare = _ascending.default) {
+  if (compare.length === 1) return (0, _maxIndex.default)(values, compare);
+  let maxValue;
+  let max = -1;
+  let index = -1;
+
+  for (const value of values) {
+    ++index;
+
+    if (max < 0 ? compare(value, value) === 0 : compare(value, maxValue) > 0) {
+      maxValue = value;
+      max = index;
+    }
+  }
+
+  return max;
+}
+},{"./ascending.js":"node_modules/d3-array/src/ascending.js","./maxIndex.js":"node_modules/d3-array/src/maxIndex.js"}],"node_modules/d3-array/src/scan.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = scan;
+
+var _leastIndex = _interopRequireDefault(require("./leastIndex.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function scan(values, compare) {
+  const index = (0, _leastIndex.default)(values, compare);
+  return index < 0 ? undefined : index;
+}
+},{"./leastIndex.js":"node_modules/d3-array/src/leastIndex.js"}],"node_modules/d3-array/src/shuffle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = shuffle;
+
+function shuffle(array, i0 = 0, i1 = array.length) {
+  var m = i1 - (i0 = +i0),
+      t,
+      i;
+
+  while (m) {
+    i = Math.random() * m-- | 0;
+    t = array[m + i0];
+    array[m + i0] = array[i + i0];
+    array[i + i0] = t;
+  }
+
+  return array;
+}
+},{}],"node_modules/d3-array/src/sum.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = sum;
+
+function sum(values, valueof) {
+  let sum = 0;
+
+  if (valueof === undefined) {
+    for (let value of values) {
+      if (value = +value) {
+        sum += value;
+      }
+    }
+  } else {
+    let index = -1;
+
+    for (let value of values) {
+      if (value = +valueof(value, ++index, values)) {
+        sum += value;
+      }
+    }
+  }
+
+  return sum;
+}
+},{}],"node_modules/d3-array/src/transpose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _min = _interopRequireDefault(require("./min.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(matrix) {
+  if (!(n = matrix.length)) return [];
+
+  for (var i = -1, m = (0, _min.default)(matrix, length), transpose = new Array(m); ++i < m;) {
+    for (var j = -1, n, row = transpose[i] = new Array(n); ++j < n;) {
+      row[j] = matrix[j][i];
+    }
+  }
+
+  return transpose;
+}
+
+function length(d) {
+  return d.length;
+}
+},{"./min.js":"node_modules/d3-array/src/min.js"}],"node_modules/d3-array/src/zip.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _transpose = _interopRequireDefault(require("./transpose.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default() {
+  return (0, _transpose.default)(arguments);
+}
+},{"./transpose.js":"node_modules/d3-array/src/transpose.js"}],"node_modules/d3-array/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "bisect", {
+  enumerable: true,
+  get: function () {
+    return _bisect.default;
+  }
+});
+Object.defineProperty(exports, "bisectRight", {
+  enumerable: true,
+  get: function () {
+    return _bisect.bisectRight;
+  }
+});
+Object.defineProperty(exports, "bisectLeft", {
+  enumerable: true,
+  get: function () {
+    return _bisect.bisectLeft;
+  }
+});
+Object.defineProperty(exports, "ascending", {
+  enumerable: true,
+  get: function () {
+    return _ascending.default;
+  }
+});
+Object.defineProperty(exports, "bisector", {
+  enumerable: true,
+  get: function () {
+    return _bisector.default;
+  }
+});
+Object.defineProperty(exports, "count", {
+  enumerable: true,
+  get: function () {
+    return _count.default;
+  }
+});
+Object.defineProperty(exports, "cross", {
+  enumerable: true,
+  get: function () {
+    return _cross.default;
+  }
+});
+Object.defineProperty(exports, "cumsum", {
+  enumerable: true,
+  get: function () {
+    return _cumsum.default;
+  }
+});
+Object.defineProperty(exports, "descending", {
+  enumerable: true,
+  get: function () {
+    return _descending.default;
+  }
+});
+Object.defineProperty(exports, "deviation", {
+  enumerable: true,
+  get: function () {
+    return _deviation.default;
+  }
+});
+Object.defineProperty(exports, "extent", {
+  enumerable: true,
+  get: function () {
+    return _extent.default;
+  }
+});
+Object.defineProperty(exports, "group", {
+  enumerable: true,
+  get: function () {
+    return _group.default;
+  }
+});
+Object.defineProperty(exports, "groups", {
+  enumerable: true,
+  get: function () {
+    return _group.groups;
+  }
+});
+Object.defineProperty(exports, "rollup", {
+  enumerable: true,
+  get: function () {
+    return _group.rollup;
+  }
+});
+Object.defineProperty(exports, "rollups", {
+  enumerable: true,
+  get: function () {
+    return _group.rollups;
+  }
+});
+Object.defineProperty(exports, "bin", {
+  enumerable: true,
+  get: function () {
+    return _bin.default;
+  }
+});
+Object.defineProperty(exports, "histogram", {
+  enumerable: true,
+  get: function () {
+    return _bin.default;
+  }
+});
+Object.defineProperty(exports, "thresholdFreedmanDiaconis", {
+  enumerable: true,
+  get: function () {
+    return _freedmanDiaconis.default;
+  }
+});
+Object.defineProperty(exports, "thresholdScott", {
+  enumerable: true,
+  get: function () {
+    return _scott.default;
+  }
+});
+Object.defineProperty(exports, "thresholdSturges", {
+  enumerable: true,
+  get: function () {
+    return _sturges.default;
+  }
+});
+Object.defineProperty(exports, "max", {
+  enumerable: true,
+  get: function () {
+    return _max.default;
+  }
+});
+Object.defineProperty(exports, "maxIndex", {
+  enumerable: true,
+  get: function () {
+    return _maxIndex.default;
+  }
+});
+Object.defineProperty(exports, "mean", {
+  enumerable: true,
+  get: function () {
+    return _mean.default;
+  }
+});
+Object.defineProperty(exports, "median", {
+  enumerable: true,
+  get: function () {
+    return _median.default;
+  }
+});
+Object.defineProperty(exports, "merge", {
+  enumerable: true,
+  get: function () {
+    return _merge.default;
+  }
+});
+Object.defineProperty(exports, "min", {
+  enumerable: true,
+  get: function () {
+    return _min.default;
+  }
+});
+Object.defineProperty(exports, "minIndex", {
+  enumerable: true,
+  get: function () {
+    return _minIndex.default;
+  }
+});
+Object.defineProperty(exports, "pairs", {
+  enumerable: true,
+  get: function () {
+    return _pairs.default;
+  }
+});
+Object.defineProperty(exports, "permute", {
+  enumerable: true,
+  get: function () {
+    return _permute.default;
+  }
+});
+Object.defineProperty(exports, "quantile", {
+  enumerable: true,
+  get: function () {
+    return _quantile.default;
+  }
+});
+Object.defineProperty(exports, "quantileSorted", {
+  enumerable: true,
+  get: function () {
+    return _quantile.quantileSorted;
+  }
+});
+Object.defineProperty(exports, "quickselect", {
+  enumerable: true,
+  get: function () {
+    return _quickselect.default;
+  }
+});
+Object.defineProperty(exports, "range", {
+  enumerable: true,
+  get: function () {
+    return _range.default;
+  }
+});
+Object.defineProperty(exports, "least", {
+  enumerable: true,
+  get: function () {
+    return _least.default;
+  }
+});
+Object.defineProperty(exports, "leastIndex", {
+  enumerable: true,
+  get: function () {
+    return _leastIndex.default;
+  }
+});
+Object.defineProperty(exports, "greatest", {
+  enumerable: true,
+  get: function () {
+    return _greatest.default;
+  }
+});
+Object.defineProperty(exports, "greatestIndex", {
+  enumerable: true,
+  get: function () {
+    return _greatestIndex.default;
+  }
+});
+Object.defineProperty(exports, "scan", {
+  enumerable: true,
+  get: function () {
+    return _scan.default;
+  }
+});
+Object.defineProperty(exports, "shuffle", {
+  enumerable: true,
+  get: function () {
+    return _shuffle.default;
+  }
+});
+Object.defineProperty(exports, "sum", {
+  enumerable: true,
+  get: function () {
+    return _sum.default;
+  }
+});
+Object.defineProperty(exports, "ticks", {
+  enumerable: true,
+  get: function () {
+    return _ticks.default;
+  }
+});
+Object.defineProperty(exports, "tickIncrement", {
+  enumerable: true,
+  get: function () {
+    return _ticks.tickIncrement;
+  }
+});
+Object.defineProperty(exports, "tickStep", {
+  enumerable: true,
+  get: function () {
+    return _ticks.tickStep;
+  }
+});
+Object.defineProperty(exports, "transpose", {
+  enumerable: true,
+  get: function () {
+    return _transpose.default;
+  }
+});
+Object.defineProperty(exports, "variance", {
+  enumerable: true,
+  get: function () {
+    return _variance.default;
+  }
+});
+Object.defineProperty(exports, "zip", {
+  enumerable: true,
+  get: function () {
+    return _zip.default;
+  }
+});
+
+var _bisect = _interopRequireWildcard(require("./bisect.js"));
+
+var _ascending = _interopRequireDefault(require("./ascending.js"));
+
+var _bisector = _interopRequireDefault(require("./bisector.js"));
+
+var _count = _interopRequireDefault(require("./count.js"));
+
+var _cross = _interopRequireDefault(require("./cross.js"));
+
+var _cumsum = _interopRequireDefault(require("./cumsum.js"));
+
+var _descending = _interopRequireDefault(require("./descending.js"));
+
+var _deviation = _interopRequireDefault(require("./deviation.js"));
+
+var _extent = _interopRequireDefault(require("./extent.js"));
+
+var _group = _interopRequireWildcard(require("./group.js"));
+
+var _bin = _interopRequireDefault(require("./bin.js"));
+
+var _freedmanDiaconis = _interopRequireDefault(require("./threshold/freedmanDiaconis.js"));
+
+var _scott = _interopRequireDefault(require("./threshold/scott.js"));
+
+var _sturges = _interopRequireDefault(require("./threshold/sturges.js"));
+
+var _max = _interopRequireDefault(require("./max.js"));
+
+var _maxIndex = _interopRequireDefault(require("./maxIndex.js"));
+
+var _mean = _interopRequireDefault(require("./mean.js"));
+
+var _median = _interopRequireDefault(require("./median.js"));
+
+var _merge = _interopRequireDefault(require("./merge.js"));
+
+var _min = _interopRequireDefault(require("./min.js"));
+
+var _minIndex = _interopRequireDefault(require("./minIndex.js"));
+
+var _pairs = _interopRequireDefault(require("./pairs.js"));
+
+var _permute = _interopRequireDefault(require("./permute.js"));
+
+var _quantile = _interopRequireWildcard(require("./quantile.js"));
+
+var _quickselect = _interopRequireDefault(require("./quickselect.js"));
+
+var _range = _interopRequireDefault(require("./range.js"));
+
+var _least = _interopRequireDefault(require("./least.js"));
+
+var _leastIndex = _interopRequireDefault(require("./leastIndex.js"));
+
+var _greatest = _interopRequireDefault(require("./greatest.js"));
+
+var _greatestIndex = _interopRequireDefault(require("./greatestIndex.js"));
+
+var _scan = _interopRequireDefault(require("./scan.js"));
+
+var _shuffle = _interopRequireDefault(require("./shuffle.js"));
+
+var _sum = _interopRequireDefault(require("./sum.js"));
+
+var _ticks = _interopRequireWildcard(require("./ticks.js"));
+
+var _transpose = _interopRequireDefault(require("./transpose.js"));
+
+var _variance = _interopRequireDefault(require("./variance.js"));
+
+var _zip = _interopRequireDefault(require("./zip.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./bisect.js":"node_modules/d3-array/src/bisect.js","./ascending.js":"node_modules/d3-array/src/ascending.js","./bisector.js":"node_modules/d3-array/src/bisector.js","./count.js":"node_modules/d3-array/src/count.js","./cross.js":"node_modules/d3-array/src/cross.js","./cumsum.js":"node_modules/d3-array/src/cumsum.js","./descending.js":"node_modules/d3-array/src/descending.js","./deviation.js":"node_modules/d3-array/src/deviation.js","./extent.js":"node_modules/d3-array/src/extent.js","./group.js":"node_modules/d3-array/src/group.js","./bin.js":"node_modules/d3-array/src/bin.js","./threshold/freedmanDiaconis.js":"node_modules/d3-array/src/threshold/freedmanDiaconis.js","./threshold/scott.js":"node_modules/d3-array/src/threshold/scott.js","./threshold/sturges.js":"node_modules/d3-array/src/threshold/sturges.js","./max.js":"node_modules/d3-array/src/max.js","./maxIndex.js":"node_modules/d3-array/src/maxIndex.js","./mean.js":"node_modules/d3-array/src/mean.js","./median.js":"node_modules/d3-array/src/median.js","./merge.js":"node_modules/d3-array/src/merge.js","./min.js":"node_modules/d3-array/src/min.js","./minIndex.js":"node_modules/d3-array/src/minIndex.js","./pairs.js":"node_modules/d3-array/src/pairs.js","./permute.js":"node_modules/d3-array/src/permute.js","./quantile.js":"node_modules/d3-array/src/quantile.js","./quickselect.js":"node_modules/d3-array/src/quickselect.js","./range.js":"node_modules/d3-array/src/range.js","./least.js":"node_modules/d3-array/src/least.js","./leastIndex.js":"node_modules/d3-array/src/leastIndex.js","./greatest.js":"node_modules/d3-array/src/greatest.js","./greatestIndex.js":"node_modules/d3-array/src/greatestIndex.js","./scan.js":"node_modules/d3-array/src/scan.js","./shuffle.js":"node_modules/d3-array/src/shuffle.js","./sum.js":"node_modules/d3-array/src/sum.js","./ticks.js":"node_modules/d3-array/src/ticks.js","./transpose.js":"node_modules/d3-array/src/transpose.js","./variance.js":"node_modules/d3-array/src/variance.js","./zip.js":"node_modules/d3-array/src/zip.js"}],"vertices.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.compute_flight_paths = compute_flight_paths;
 exports.compute_vertices = compute_vertices;
 
-function equirectangular_project(lon, lat) {
-  const out = new Float32Array(2);
+var _airports = _interopRequireDefault(require("./airports.json"));
+
+var _d3Array = require("d3-array");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Orthographic projection
+function project(lon, lat) {
   const azimuth = lon * (Math.PI / 180);
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
+  const x = Math.sin(inclination) * Math.cos(azimuth);
   const y = Math.sin(inclination) * Math.sin(azimuth);
   const z = Math.cos(inclination);
-  out[0] = y;
-  out[1] = z;
-  return out;
+  if (x < 0) return false;
+  return new Float32Array([y, z]);
+}
+
+console.log('lon extent', (0, _d3Array.extent)(_airports.default, d => d[0]));
+console.log('lat extent', (0, _d3Array.extent)(_airports.default, d => d[1]));
+
+function compute_flight_paths(buffer) {
+  const array = new Uint16Array(buffer);
+  let vertices = [];
+
+  for (let i = 0; i < array.length; i += 3) {
+    const [from_lon, from_lat, from_china] = _airports.default[array[i]];
+    const [to_lon, to_lat, to_china] = _airports.default[array[i + 1]];
+    const count = array[i + 2]; // vertices.push(...project(from_lon, from_lat), ...project(to_lon, to_lat));
+  }
+
+  vertices = [];
+  let fromChina = [];
+
+  _airports.default.forEach(([lon, lat, from_china]) => {
+    const a = project(lon, lat);
+
+    if (a) {
+      vertices.push(...a);
+      fromChina.push(from_china);
+    }
+  });
+
+  return {
+    vertices: new Float32Array(vertices),
+    fromChina
+  };
 }
 
 function compute_vertices(buffer) {
@@ -10215,10 +11787,11 @@ function compute_vertices(buffer) {
 
   for (let i = 0; i < indices.length; i += 1) {
     const len = indices[i];
-    let a = equirectangular_project(coords[v++], coords[v++]);
+    let a = project(coords[v++], coords[v++]);
 
     for (let j = 1; j < len; j += 1) {
-      const b = equirectangular_project(coords[v++], coords[v++]);
+      const b = project(coords[v++], coords[v++]);
+      if (!a || !b) continue;
       vertices.push(...a, ...b);
       a = b;
     }
@@ -10226,12 +11799,16 @@ function compute_vertices(buffer) {
 
   return new Float32Array(vertices);
 }
+},{"./airports.json":"airports.json","d3-array":"node_modules/d3-array/src/index.js"}],"shaders/points.frag":[function(require,module,exports) {
+module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvarying vec2 v_position;\nvarying float v_fromChina;\n\nvoid main() {\n  gl_FragColor = vec4(v_fromChina, v_fromChina, 0, 1.);\n}\n";
+},{}],"shaders/points.vert":[function(require,module,exports) {
+module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\nattribute float fromChina;\n\nvarying vec2 v_position;\nvarying float v_fromChina;\n\nvoid main() {\n  v_fromChina = fromChina;\n  v_position = position;\n\n  gl_PointSize = 7.;\n  gl_Position = vec4(position / aspectRatio, 0, 1);\n}\n";
 },{}],"shaders/borders.frag":[function(require,module,exports) {
-module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvoid main() {\n  gl_FragColor = vec4(vec3(220. / 255.), 1.);\n}\n";
+module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvoid main() {\n  gl_FragColor = vec4(vec3(230. / 255.), 1.);\n}\n";
 },{}],"shaders/borders.vert":[function(require,module,exports) {
 module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\n\nvoid main() {\n  gl_Position = vec4(position / aspectRatio, 0, 1);\n}\n";
 },{}],"shaders/texture.frag":[function(require,module,exports) {
-module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D landTexture;\nuniform sampler2D monoTexture;\nuniform float tick;\n\nvarying vec2 v_position;\n\nvec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);\nfloat LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));\n\nvoid main() {\n\n  // Right now, we have v_position in [-1, 1] x [-1, 1]. Each fragment is\n  // a point on the sphere. We have to figure out the long-lat from that point\n  // to find the correct texture position.\n  // First we take Cartesian coordinates.\n\n  float y = v_position.x;\n  float z = v_position.y;\n  float hyp_squared = y * y + z * z;\n\n  // 1. Discard points outside the sphere\n\n  if (sqrt(hyp_squared) > 1.) {\n    discard;\n  }\n\n  // 2. Determine front-facing spherical coordinate\n\n  float lambda_offset = tick / 400.;\n\n  float x = sqrt(1. - hyp_squared); // Take positive face\n  float lambda = atan(y / x);       // [-PI / 2, PI / 2]\n  float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]\n\n  // 3. Convert long-lat radians to long-lat\n\n  float longitude = (lambda + PI) / (2. * PI); // map to [0, 0.5]\n  float latitude = phi / PI + 0.5;             // map to [0, 1]\n\n  // 3.5. Draw lat/lng lines\n\n  // if (mod(longitude, PI / 360.) < 0.001) {\n  //   gl_FragColor = vec4(0, 0, 0, 0.3);\n  //   return;\n  // }\n\n  // 4. Grab the texture color and do some color stuffs. Black = land, white =\n  // no land.\n\n  vec2 longlat = vec2(mod(longitude, 1.), mod(latitude, 1.));\n  vec3 texture_color = texture2D(landTexture, longlat).rgb;\n  vec3 mono_color = texture2D(monoTexture, longlat).rgb;\n\n  texture_color += vec3(240. / 255.) * mono_color;\n\n  // 5. Calculate lighting. Allow it to only impact a little bit.\n\n  float dotted = dot(vec3(y, z, x), LIGHT_REVERSED) / LIGHT_MAG;\n  float light = sign(dotted) * pow(dotted, 1.2);\n  light = min(1.0, 0.55 + light * 0.3);\n\n  gl_FragColor = vec4(texture_color, 1.);\n  gl_FragColor.rgb *= light;\n}\n";
+module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D landTexture;\nuniform sampler2D monoTexture;\nuniform float tick;\n\nvarying vec2 v_position;\n\nvec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);\nfloat LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));\n\nvoid main() {\n\n  // The screen is the tangent plane. Each (x, y) we treat as an\n  // orthographically projected point of the front-facing hemisphere.\n  // The textures are equirectangular projections, which means the position of\n  // an image pixel is just the longitude-latitude.\n  // For each fragment, then, we must figure out the corresponding lat-long to\n  // retrieve the correct image pixel.\n\n  // 1. Define the projected coordinates.\n  //    Discard fragments outside the great circle.\n\n  float x = v_position.x;\n  float y = v_position.y;\n  float c = x * x + y * y; // Distance from center of orthographic projection\n\n  if (sqrt(c) > 1.) {\n    discard;\n  }\n\n  // 2. Invert projection to get spherical coordinates\n\n  float depth = sqrt(1. - c);        // Purposefully ignoring negative face\n  float longitude = atan(x / depth) + PI / 2.; // [-PI / 2, PI / 2]\n  float latitude = asin(y);          // [-PI / 2, PI / 2]\n\n  // 3. Do equirectangular projection to get plane/texture coordinates\n  //    For longitude: Map to [0.25, 0.75] (center is 0.5, range is 0.5)\n  //    For latitude: Map to [0, 1] (center is 0.5, range is 0.5)\n\n  float texture_x = (longitude + PI) / (2. * PI);\n  float texture_y = (latitude + PI / 2.) / PI;\n\n  // 4. Grab texture colors. Black = land, white = no land.\n\n  vec2 texture_position = vec2(texture_x, texture_y);\n  vec3 texture_color = texture2D(landTexture, texture_position).rgb;\n  vec3 mono_color = texture2D(monoTexture, texture_position).rgb;\n\n  texture_color += vec3(240. / 255.) * mono_color;\n\n  // 5. Calculate lighting.\n\n  float dotted = dot(vec3(x, y, depth), LIGHT_REVERSED) / LIGHT_MAG;\n  float light = sign(dotted) * pow(dotted, 1.2);\n  light = min(1.0, 0.55 + light * 0.3);\n\n  gl_FragColor = vec4(texture_color, 1.);\n  gl_FragColor.rgb *= light;\n}\n";
 },{}],"shaders/texture.vert":[function(require,module,exports) {
 module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\n\nvarying vec2 v_position;\n\nvoid main() {\n  // For some reason textures only cover the first quadrant of the clip space.\n  // Remember that v_position should become the coordinate of the texture in\n  // clip space. Cutting position in half means that (1, 1) in the clip space\n  // becomes (0.5, 0.5) on the texture.\n  // two quadrants' worth of space.\n  // Adding 0.5 to position means that (1, 1) in the clip space becomes (1, 1)\n  // on the texture, and similarly (0, 0) -> (0.5, 0.5) (the texture's center)\n  // and (-1, -1) -> (0, 0).\n\n  // v_position = 0.5 + position * 0.5;\n  v_position = position * aspectRatio;\n\n  // gl_Position should be position because the position attribute covers the\n  // whole clip space\n  gl_Position = vec4(position, 0, 1);\n}\n";
 },{}],"specularity@2x.png":[function(require,module,exports) {
@@ -10244,6 +11821,12 @@ module.exports = "/mono@2x.d854d10c.png";
 var _regl = _interopRequireDefault(require("regl"));
 
 var _vertices = require("./vertices");
+
+var _airports = _interopRequireDefault(require("./airports.json"));
+
+var _points = _interopRequireDefault(require("./shaders/points.frag"));
+
+var _points2 = _interopRequireDefault(require("./shaders/points.vert"));
 
 var _borders = _interopRequireDefault(require("./shaders/borders.frag"));
 
@@ -10280,11 +11863,8 @@ async function getTexture(filename) {
   });
 }
 
-async function main() {
-  const [vertices, landTexture, monoTexture] = await Promise.all([getVertices(), // getTexture('specularity@2x.png'),
-  // getTexture('mono@2x.png'),
-  getTexture(_specularity2x.default), getTexture(_mono2x.default)]);
-  const drawBorders = regl({
+function createLineDrawer(vertices) {
+  return regl({
     frag: _borders.default,
     vert: _borders2.default,
     uniforms: {
@@ -10295,6 +11875,26 @@ async function main() {
     },
     count: vertices.length / 2,
     primitive: 'lines'
+  });
+}
+
+async function main() {
+  const [borders, landTexture, monoTexture, flights] = await Promise.all([getVertices(), // getTexture('specularity@2x.png'),
+  // getTexture('mono@2x.png'),
+  getTexture(_specularity2x.default), getTexture(_mono2x.default), getFlights()]);
+  const drawBorders = createLineDrawer(borders);
+  const drawFlights = regl({
+    frag: _points.default,
+    vert: _points2.default,
+    uniforms: {
+      aspectRatio
+    },
+    attributes: {
+      position: flights.vertices,
+      fromChina: flights.fromChina
+    },
+    count: flights.vertices.length / 2,
+    primitive: 'points'
   });
   const drawTexture = regl({
     frag: _texture.default,
@@ -10318,6 +11918,7 @@ async function main() {
       color: [0, 0, 0, 0],
       depth: 1
     });
+    drawFlights();
     drawBorders();
     drawTexture({
       tick
@@ -10325,10 +11926,8 @@ async function main() {
   });
 }
 
-async function test() {
-  const res = await fetch(`${base}/20200123.dat`);
-  const buf = await res.arrayBuffer();
-  console.log(new Uint16Array(buf));
+async function getFlights() {
+  return fetch(`${base}/20200123.dat`).then(response => response.arrayBuffer()).then(buffer => (0, _vertices.compute_flight_paths)(buffer));
 }
 
 main().catch(console.error);
@@ -10340,7 +11939,7 @@ function aspectRatio({
   const ar = viewportWidth / viewportHeight;
   return ar > 1 ? [ar, 1] : [1, 1 / ar];
 }
-},{"regl":"node_modules/regl/dist/regl.js","./vertices":"vertices.js","./shaders/borders.frag":"shaders/borders.frag","./shaders/borders.vert":"shaders/borders.vert","./shaders/texture.frag":"shaders/texture.frag","./shaders/texture.vert":"shaders/texture.vert","./specularity@2x.png":"specularity@2x.png","./mono@2x.png":"mono@2x.png"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"regl":"node_modules/regl/dist/regl.js","./vertices":"vertices.js","./airports.json":"airports.json","./shaders/points.frag":"shaders/points.frag","./shaders/points.vert":"shaders/points.vert","./shaders/borders.frag":"shaders/borders.frag","./shaders/borders.vert":"shaders/borders.vert","./shaders/texture.frag":"shaders/texture.frag","./shaders/texture.vert":"shaders/texture.vert","./specularity@2x.png":"specularity@2x.png","./mono@2x.png":"mono@2x.png"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -10368,7 +11967,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51487" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59475" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
