@@ -37,18 +37,16 @@ function equirectangular_project(lon, lat) {
 }
 
 export function compute_vertices(buffer) {
-  // First 4 bytes contain the number of "indices"
-  // Each "indices" is a count of how many vertices are in a line.
+  // First uint32 (4 bytes) contain the number of line strings.
   const count = new Uint32Array(buffer, 0, 1)[0];
-  // Next 4 * count bytes stores the vertex counts
+  // Each of the next `count` uint32s stores the vertex count of a line string.
   const indices = new Uint32Array(buffer, 4, count);
-  // Rest of bytes contain float coordinates (alternating lon-lat pairs)
+  // Rest of bytes contain vertex coordinates (alternating long-lat pairs)
   const coords = new Float32Array(buffer, 4 * (indices.length + 1));
 
   const vertices = [];
   let v = 0;
 
-  // Constructing line strings. `indices` is a list of linestring sizes.
   for (let i = 0; i < indices.length; i += 1) {
     const len = indices[i];
 

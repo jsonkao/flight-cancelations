@@ -6,6 +6,10 @@ import borderVert from './shaders/borders.vert';
 import textureFrag from './shaders/texture.frag';
 import textureVert from './shaders/texture.vert';
 
+import spec from './specularity@2x.png';
+import mono from './mono@2x.png';
+
+
 const regl = createREGL();
 
 const base =
@@ -20,14 +24,21 @@ async function getVertices() {
 async function getTexture(filename) {
   return new Promise(resolve => {
     const image = new Image();
-    image.src = `${base}/textures/${filename}`;
+    // image.src = `${base}/textures/${filename}`;
+    image.src = filename;
     image.crossOrigin = '';
-    image.onload = () => resolve(regl.texture(image));
+    image.onload = () => resolve(regl.texture({ data: image, flipY: true }));
   });
 }
 
 async function main() {
-  const [vertices, landTexture, monoTexture] = await Promise.all([getVertices(), getTexture('specularity@2x.png'), getTexture('mono@2x.png')]);
+  const [vertices, landTexture, monoTexture] = await Promise.all([
+    getVertices(),
+    // getTexture('specularity@2x.png'),
+    // getTexture('mono@2x.png'),
+    getTexture(spec),
+    getTexture(mono),
+  ]);
 
   const drawBorders = regl({
     frag: borderFrag,
@@ -50,7 +61,7 @@ async function main() {
       aspectRatio: ({ viewportWidth, viewportHeight }) => {
         const ar = viewportWidth / viewportHeight;
         return ar > 1 ? [ar, 1] : [1, 1 / ar];
-      }
+      },
     },
     attributes: {
       // Two triangles that cover the whole clip space

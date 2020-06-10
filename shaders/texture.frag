@@ -32,14 +32,14 @@ void main() {
 
   float lambda_offset = tick / 400.;
 
-  float x = sqrt(1. - hyp_squared);           // Take positive face
-  float lambda = atan(y / x) + lambda_offset; // [-PI / 2, PI / 2]
-  float phi = acos(z);                        // [0, PI]
+  float x = sqrt(1. - hyp_squared); // Take positive face
+  float lambda = atan(y / x);       // [-PI / 2, PI / 2]
+  float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]
 
   // 3. Convert long-lat radians to long-lat
 
-  float longitude = (lambda + PI) / (2. * PI);
-  float latitude = phi / PI;
+  float longitude = (lambda + PI) / (2. * PI); // map to [0, 0.5]
+  float latitude = phi / PI + 0.5;             // map to [0, 1]
 
   // 3.5. Draw lat/lng lines
 
