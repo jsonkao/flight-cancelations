@@ -1,36 +1,9 @@
-function project(lon, lat) {
-  const out = new Float32Array(2);
-
-  const lat_radians = (lat / 180) * Math.PI;
-  const lon_radians = ((lon + 90) / 180) * Math.PI;
-
-  let x = Math.sin(lon_radians);
-  let z = Math.cos(lon_radians);
-  let y = Math.tan(lat_radians);
-
-  const mag = Math.sqrt(1 + y * y);
-
-  x /= mag;
-  y /= mag;
-  z /= mag;
-
-  out[0] = x;
-  out[1] = y;
-  // out[2] = z;
-
-  return out;
-}
-
 function equirectangular_project(lon, lat) {
   const out = new Float32Array(2);
-
-  // lon ranges from around -140 to 140
-  // lat ranges from around -55 to 70
 
   const azimuth = lon * (Math.PI / 180);
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
-  const x = Math.cos(inclination) * Math.sin(azimuth);
   const y = Math.sin(inclination) * Math.sin(azimuth);
   const z = Math.cos(inclination);
 
