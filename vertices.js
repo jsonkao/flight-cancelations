@@ -39,8 +39,8 @@ export function compute_flight_paths(buffer) {
   }
 
   return {
-    depart_points: new Float32Array(depart_points),
-    arrive_points: new Float32Array(arrive_points),
+    depart_points,
+    arrive_points,
   };
 }
 

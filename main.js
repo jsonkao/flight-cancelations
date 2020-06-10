@@ -8,15 +8,16 @@ import bordersVert from './shaders/borders.vert';
 import textureFrag from './shaders/texture.frag';
 import textureVert from './shaders/texture.vert';
 
-import spec from './specularity@2x.png';
-import mono from './mono@2x.png';
+import specImg from './specularity@2x.png';
+import monoImg from './mono@2x.png';
+import planeImg from './airplane.png';
 
 const regl = createREGL();
 
 const base =
   'https://static01.nyt.com/newsgraphics/2020/02/04/coronavirus-flights/67d5b188d41684d2a82da11e94e358b4a769735e';
 
-async function getVertices() {
+async function getBorders() {
   return fetch(`${base}/geometry/borders.dat`)
     .then(response => response.arrayBuffer())
     .then(buffer => compute_vertices(buffer));
@@ -52,13 +53,18 @@ function createLineDrawer(vertices) {
 }
 
 async function main() {
-  const [borders, landTexture, monoTexture, flights] = await Promise.all([
-    getVertices(),
-    // getTexture('specularity@2x.png'),
-    // getTexture('mono@2x.png'),
-    getTexture(spec),
-    getTexture(mono),
+  const [
+    borders,
+    flights,
+    landTexture,
+    monoTexture,
+    planeTexture,
+  ] = await Promise.all([
+    getBorders(),
     getFlights(),
+    getTexture(specImg), // 'specularity@2x.png'
+    getTexture(monoImg), // 'mono@2x.png'
+    getTexture(planeImg),
   ]);
 
   const drawBorders = createLineDrawer(borders);
@@ -68,9 +74,12 @@ async function main() {
     vert: flightsVert,
 
     uniforms: {
-      aspectRatio,
+      plane_texture: planeTexture,
+
       speed: 0.0001,
       elapsed: regl.prop('elapsed'),
+
+      aspectRatio,
     },
 
     attributes: {
