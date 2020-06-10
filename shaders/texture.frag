@@ -33,7 +33,7 @@ void main() {
   float lambda_offset = tick / 400.;
 
   float x = sqrt(1. - hyp_squared); // Take positive face
-  float lambda = atan(y / x);       // [-PI / 2, PI / 2]
+  float lambda = atan(y / x) + PI;       // [-PI / 2, PI / 2]
   float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]
 
   // 3. Convert long-lat radians to long-lat
