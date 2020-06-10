@@ -10192,44 +10192,26 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.compute_vertices = compute_vertices;
 
-function project(lon, lat) {
-  const out = new Float32Array(2);
-  const lat_radians = lat / 180 * Math.PI;
-  const lon_radians = (lon + 90) / 180 * Math.PI;
-  let x = Math.sin(lon_radians);
-  let z = Math.cos(lon_radians);
-  let y = Math.tan(lat_radians);
-  const mag = Math.sqrt(1 + y * y);
-  x /= mag;
-  y /= mag;
-  z /= mag;
-  out[0] = x;
-  out[1] = y; // out[2] = z;
-
-  return out;
-}
-
 function equirectangular_project(lon, lat) {
   const out = new Float32Array(2);
-  const lon_radians = (lon + 90) * (Math.PI / 180);
-  const lat_radians = lat * (Math.PI / 180);
-  const x = Math.cos(lat_radians) * Math.cos(lon_radians);
-  const y = Math.sin(lat_radians);
-  out[0] = lon;
-  out[1] = lat;
+  const azimuth = lon * (Math.PI / 180);
+  const inclination = Math.PI / 2 - lat * (Math.PI / 180);
+  const y = Math.sin(inclination) * Math.sin(azimuth);
+  const z = Math.cos(inclination);
+  out[0] = y;
+  out[1] = z;
   return out;
 }
 
 function compute_vertices(buffer) {
-  // First 4 bytes contain the number of "indices"
-  // Each "indices" is a count of how many vertices are in a line.
-  const count = new Uint32Array(buffer, 0, 1)[0]; // Next 4 * count bytes stores the vertex counts
+  // First uint32 (4 bytes) contain the number of line strings.
+  const count = new Uint32Array(buffer, 0, 1)[0]; // Each of the next `count` uint32s stores the vertex count of a line string.
 
-  const indices = new Uint32Array(buffer, 4, count); // Rest of bytes contain float coordinates (alternating lon-lat pairs)
+  const indices = new Uint32Array(buffer, 4, count); // Rest of bytes contain vertex coordinates (alternating long-lat pairs)
 
   const coords = new Float32Array(buffer, 4 * (indices.length + 1));
   const vertices = [];
-  let v = 0; // Constructing line strings. `indices` is a list of linestring sizes.
+  let v = 0;
 
   for (let i = 0; i < indices.length; i += 1) {
     const len = indices[i];
@@ -10242,23 +10224,20 @@ function compute_vertices(buffer) {
     }
   }
 
-  let longs = [];
-  let lats = [];
-  vertices.forEach((v, i) => {
-    (i % 2 === 0 ? longs : lats).push(v);
-  });
-  console.log('longs', Math.min(...longs), Math.max(...longs));
-  console.log('lats', Math.min(...lats), Math.max(...lats));
   return new Float32Array(vertices);
 }
 },{}],"shaders/borders.frag":[function(require,module,exports) {
-module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform float time;\n\nvoid main() {\n  // rotate2d(sin(time) * PI)\n  gl_FragColor = vec4(1, 0, 0, 1);\n}\n";
+module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvoid main() {\n  gl_FragColor = vec4(vec3(220. / 255.), 1.);\n}\n";
 },{}],"shaders/borders.vert":[function(require,module,exports) {
-module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nattribute vec2 position;\n\nvoid main() {\n  gl_PointSize = 3.;\n  gl_Position = vec4(position, 0, 1);\n}\n";
+module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\n\nvoid main() {\n  gl_Position = vec4(position / aspectRatio, 0, 1);\n}\n";
 },{}],"shaders/texture.frag":[function(require,module,exports) {
-module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D landTexture;\nuniform sampler2D monoTexture;\nuniform float tick;\n\nvarying vec2 v_position;\n\nvec3 LIGHT_REVERSED = vec3(-1, 1, 1);\nfloat LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));\n\nvoid main() {\n\n  // Right now, we have v_position in [-1, 1] x [-1, 1]. Each fragment is\n  // a point on the sphere. We have to figure out the long-lat from that point\n  // to find the correct texture position.\n  // First we take Cartesian coordinates.\n\n  float y = v_position.x;\n  float z = v_position.y;\n  float hyp_squared = y * y + z * z;\n\n  // 1. Discard points outside the sphere\n\n  if (sqrt(hyp_squared) > 1.) {\n    discard;\n  }\n\n  // 2. Determine front-facing spherical coordinate\n\n  float lambda_offset = tick / 400.;\n\n  float x = sqrt(1. - hyp_squared);           // Take positive face\n  float lambda = atan(y / x) + lambda_offset; // [-PI / 2, PI / 2]\n  float phi = acos(z);                        // [0, PI]\n\n  // 3. Convert long-lat radians to long-lat\n\n  float longitude = (lambda + PI) / (2. * PI);\n  float latitude = phi / PI;\n\n  // 3.5. Draw lat/lng lines\n\n  // if (mod(longitude, PI / 360.) < 0.001) {\n  //   gl_FragColor = vec4(0, 0, 0, 0.3);\n  //   return;\n  // }\n\n  // 4. Grab the texture color and do some color stuffs. Black = land, white =\n  // no land.\n\n  vec2 longlat = vec2(mod(longitude, 1.), mod(latitude, 1.));\n  vec3 texture_color = texture2D(landTexture, longlat).rgb;\n  vec3 mono_color = texture2D(monoTexture, longlat).rgb;\n\n  texture_color += vec3(240. / 255.) * mono_color;\n\n  // 5. Calculate lighting. Allow it to only impact a little bit.\n\n  vec3 normal = vec3(y, z, x);\n  float light = pow(dot(normal, LIGHT_REVERSED) / LIGHT_MAG, 1.);\n  light = min(1.0, 0.55 + light * 0.3);\n\n  gl_FragColor = vec4(texture_color, 1.);\n  gl_FragColor.rgb *= light;\n}\n";
+module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D landTexture;\nuniform sampler2D monoTexture;\nuniform float tick;\n\nvarying vec2 v_position;\n\nvec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);\nfloat LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));\n\nvoid main() {\n\n  // Right now, we have v_position in [-1, 1] x [-1, 1]. Each fragment is\n  // a point on the sphere. We have to figure out the long-lat from that point\n  // to find the correct texture position.\n  // First we take Cartesian coordinates.\n\n  float y = v_position.x;\n  float z = v_position.y;\n  float hyp_squared = y * y + z * z;\n\n  // 1. Discard points outside the sphere\n\n  if (sqrt(hyp_squared) > 1.) {\n    discard;\n  }\n\n  // 2. Determine front-facing spherical coordinate\n\n  float lambda_offset = tick / 400.;\n\n  float x = sqrt(1. - hyp_squared); // Take positive face\n  float lambda = atan(y / x);       // [-PI / 2, PI / 2]\n  float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]\n\n  // 3. Convert long-lat radians to long-lat\n\n  float longitude = (lambda + PI) / (2. * PI); // map to [0, 0.5]\n  float latitude = phi / PI + 0.5;             // map to [0, 1]\n\n  // 3.5. Draw lat/lng lines\n\n  // if (mod(longitude, PI / 360.) < 0.001) {\n  //   gl_FragColor = vec4(0, 0, 0, 0.3);\n  //   return;\n  // }\n\n  // 4. Grab the texture color and do some color stuffs. Black = land, white =\n  // no land.\n\n  vec2 longlat = vec2(mod(longitude, 1.), mod(latitude, 1.));\n  vec3 texture_color = texture2D(landTexture, longlat).rgb;\n  vec3 mono_color = texture2D(monoTexture, longlat).rgb;\n\n  texture_color += vec3(240. / 255.) * mono_color;\n\n  // 5. Calculate lighting. Allow it to only impact a little bit.\n\n  float dotted = dot(vec3(y, z, x), LIGHT_REVERSED) / LIGHT_MAG;\n  float light = sign(dotted) * pow(dotted, 1.2);\n  light = min(1.0, 0.55 + light * 0.3);\n\n  gl_FragColor = vec4(texture_color, 1.);\n  gl_FragColor.rgb *= light;\n}\n";
 },{}],"shaders/texture.vert":[function(require,module,exports) {
 module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\n\nvarying vec2 v_position;\n\nvoid main() {\n  // For some reason textures only cover the first quadrant of the clip space.\n  // Remember that v_position should become the coordinate of the texture in\n  // clip space. Cutting position in half means that (1, 1) in the clip space\n  // becomes (0.5, 0.5) on the texture.\n  // two quadrants' worth of space.\n  // Adding 0.5 to position means that (1, 1) in the clip space becomes (1, 1)\n  // on the texture, and similarly (0, 0) -> (0.5, 0.5) (the texture's center)\n  // and (-1, -1) -> (0, 0).\n\n  // v_position = 0.5 + position * 0.5;\n  v_position = position * aspectRatio;\n\n  // gl_Position should be position because the position attribute covers the\n  // whole clip space\n  gl_Position = vec4(position, 0, 1);\n}\n";
+},{}],"specularity@2x.png":[function(require,module,exports) {
+module.exports = "/specularity@2x.d6c70c26.png";
+},{}],"mono@2x.png":[function(require,module,exports) {
+module.exports = "/mono@2x.d854d10c.png";
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
@@ -10274,6 +10253,10 @@ var _texture = _interopRequireDefault(require("./shaders/texture.frag"));
 
 var _texture2 = _interopRequireDefault(require("./shaders/texture.vert"));
 
+var _specularity2x = _interopRequireDefault(require("./specularity@2x.png"));
+
+var _mono2x = _interopRequireDefault(require("./mono@2x.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const regl = (0, _regl.default)();
@@ -10285,24 +10268,33 @@ async function getVertices() {
 
 async function getTexture(filename) {
   return new Promise(resolve => {
-    const image = new Image();
-    image.src = `${base}/textures/${filename}`;
+    const image = new Image(); // image.src = `${base}/textures/${filename}`;
+
+    image.src = filename;
     image.crossOrigin = '';
 
-    image.onload = () => resolve(regl.texture(image));
+    image.onload = () => resolve(regl.texture({
+      data: image,
+      flipY: true
+    }));
   });
 }
 
 async function main() {
-  const [vertices, landTexture, monoTexture] = await Promise.all([getVertices(), getTexture('specularity@2x.png'), getTexture('mono@2x.png')]);
+  const [vertices, landTexture, monoTexture] = await Promise.all([getVertices(), // getTexture('specularity@2x.png'),
+  // getTexture('mono@2x.png'),
+  getTexture(_specularity2x.default), getTexture(_mono2x.default)]);
   const drawBorders = regl({
     frag: _borders.default,
     vert: _borders2.default,
+    uniforms: {
+      aspectRatio
+    },
     attributes: {
       position: vertices
     },
     count: vertices.length / 2,
-    primitive: 'points'
+    primitive: 'lines'
   });
   const drawTexture = regl({
     frag: _texture.default,
@@ -10311,13 +10303,7 @@ async function main() {
       landTexture,
       monoTexture,
       tick: regl.prop('tick'),
-      aspectRatio: ({
-        viewportWidth,
-        viewportHeight
-      }) => {
-        const ar = viewportWidth / viewportHeight;
-        return ar > 1 ? [ar, 1] : [1, 1 / ar];
-      }
+      aspectRatio
     },
     attributes: {
       // Two triangles that cover the whole clip space
@@ -10346,7 +10332,15 @@ async function test() {
 }
 
 main().catch(console.error);
-},{"regl":"node_modules/regl/dist/regl.js","./vertices":"vertices.js","./shaders/borders.frag":"shaders/borders.frag","./shaders/borders.vert":"shaders/borders.vert","./shaders/texture.frag":"shaders/texture.frag","./shaders/texture.vert":"shaders/texture.vert"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+function aspectRatio({
+  viewportWidth,
+  viewportHeight
+}) {
+  const ar = viewportWidth / viewportHeight;
+  return ar > 1 ? [ar, 1] : [1, 1 / ar];
+}
+},{"regl":"node_modules/regl/dist/regl.js","./vertices":"vertices.js","./shaders/borders.frag":"shaders/borders.frag","./shaders/borders.vert":"shaders/borders.vert","./shaders/texture.frag":"shaders/texture.frag","./shaders/texture.vert":"shaders/texture.vert","./specularity@2x.png":"specularity@2x.png","./mono@2x.png":"mono@2x.png"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -10374,7 +10368,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57930" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51487" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
