@@ -1,10 +1,9 @@
 import airports from './airports.json';
-import { extent } from 'd3-array';
 
 // Orthographic projection
 
 function project(lon, lat) {
-  const azimuth = lon * (Math.PI / 180) - Math.PI / 2;
+  const azimuth = lon * (Math.PI / 180);
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
   const x = Math.sin(inclination) * Math.cos(azimuth);
@@ -16,16 +15,11 @@ function project(lon, lat) {
   return new Float32Array([y, z]);
 }
 
-console.log(
-  'lon extent',
-  extent(airports, d => d[0]),
-);
-console.log(
-  'lat extent',
-  extent(airports, d => d[1]),
-);
-
 export function compute_flight_paths(buffer) {
+  /*
+  // A sequence of [from_index, to_index, count] tuples, where from_index and
+  // to_index are indexes in airports.json. Each entry in airports.json is
+  // [lon, lat, is_china]
   const array = new Uint16Array(buffer);
 
   let vertices = [];
@@ -34,11 +28,13 @@ export function compute_flight_paths(buffer) {
     const [from_lon, from_lat, from_china] = airports[array[i]];
     const [to_lon, to_lat, to_china] = airports[array[i + 1]];
     const count = array[i + 2];
-    // vertices.push(...project(from_lon, from_lat), ...project(to_lon, to_lat));
+    vertices.push(...project(from_lon, from_lat), ...project(to_lon, to_lat));
   }
+  */
 
-  vertices = [];
-  let fromChina = [];
+  const vertices = [];
+  const fromChina = [];
+
   airports.forEach(([lon, lat, from_china]) => {
     const a = project(lon, lat);
     if (a) {

@@ -1,6 +1,5 @@
 import createREGL from 'regl';
 import { compute_vertices, compute_flight_paths } from './vertices';
-import airports from './airports.json';
 
 import pointsFrag from './shaders/points.frag';
 import pointsVert from './shaders/points.vert';
@@ -26,11 +25,16 @@ async function getVertices() {
 async function getTexture(filename) {
   return new Promise(resolve => {
     const image = new Image();
-    // image.src = `${base}/textures/${filename}`;
-    image.src = filename;
+    image.src = filename; // `${base}/textures/${filename}`;
     image.crossOrigin = '';
     image.onload = () => resolve(regl.texture({ data: image, flipY: true }));
   });
+}
+
+async function getFlights() {
+  return fetch(`${base}/20200123.dat`)
+    .then(response => response.arrayBuffer())
+    .then(buffer => compute_flight_paths(buffer));
 }
 
 function createLineDrawer(vertices) {
@@ -38,7 +42,7 @@ function createLineDrawer(vertices) {
     frag: borderFrag,
     vert: borderVert,
 
-    uniforms: { aspectRatio, },
+    uniforms: { aspectRatio },
 
     attributes: { position: vertices },
 
@@ -58,18 +62,18 @@ async function main() {
   ]);
 
   const drawBorders = createLineDrawer(borders);
-  console.log('flights :>> ', flights);
+
   const drawFlights = regl({
     frag: pointsFrag,
     vert: pointsVert,
 
-    uniforms: { aspectRatio, },
+    uniforms: { aspectRatio },
 
     attributes: { position: flights.vertices, fromChina: flights.fromChina },
 
     count: flights.vertices.length / 2,
     primitive: 'points',
-  })
+  });
 
   const drawTexture = regl({
     frag: textureFrag,
@@ -102,16 +106,11 @@ async function main() {
       color: [0, 0, 0, 0],
       depth: 1,
     });
+
     drawFlights();
     drawBorders();
     drawTexture({ tick });
   });
-}
-
-async function getFlights() {
-  return fetch(`${base}/20200123.dat`)
-    .then(response => response.arrayBuffer())
-    .then(buffer => compute_flight_paths(buffer));
 }
 
 main().catch(console.error);

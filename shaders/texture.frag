@@ -34,7 +34,7 @@ void main() {
   // 2. Invert projection to get spherical coordinates
 
   float depth = sqrt(1. - c);        // Purposefully ignoring negative face
-  float longitude = atan(x / depth) + PI / 2.; // [-PI / 2, PI / 2]
+  float longitude = atan(x / depth); // [-PI / 2, PI / 2]
   float latitude = asin(y);          // [-PI / 2, PI / 2]
 
   // 3. Do equirectangular projection to get plane/texture coordinates
