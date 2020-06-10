@@ -33,7 +33,7 @@ void main() {
   float lambda_offset = tick / 400.;
 
   float x = sqrt(1. - hyp_squared); // Take positive face
-  float lambda = atan(y / x);       // [-PI / 2, PI / 2]
+  float lambda = atan(y / x) + lambda_offset;       // [-PI / 2, PI / 2]
   float phi = PI / 2. - acos(z);    // [-PI / 2, PI / 2]
 
   // 3. Convert long-lat radians to long-lat
@@ -59,9 +59,9 @@ void main() {
 
   // 5. Calculate lighting. Allow it to only impact a little bit.
 
-  vec3 normal = vec3(y, z, x);
-  float light = pow(dot(normal, LIGHT_REVERSED) / LIGHT_MAG, 1.);
-  light = min(1.0, 0.55 + light * 0.3);
+  float dotted = dot(vec3(y, z, x), LIGHT_REVERSED) / LIGHT_MAG;
+  float light = sign(dotted) * pow(dotted, 1.2);
+  light = min(1.0, 0.35 + light * 0.3);
 
   gl_FragColor = vec4(texture_color, 1.);
   gl_FragColor.rgb *= light;
