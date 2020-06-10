@@ -1,7 +1,10 @@
-function equirectangular_project(lon, lat) {
+import airports from './airports.json';
+
+// Equirectangular projection
+function project(lon, lat) {
   const out = new Float32Array(2);
 
-  const azimuth = lon * (Math.PI / 180);
+  const azimuth = (lon + 90) * (Math.PI / 180);
   const inclination = Math.PI / 2 - lat * (Math.PI / 180);
 
   const y = Math.sin(inclination) * Math.sin(azimuth);
@@ -11,6 +14,27 @@ function equirectangular_project(lon, lat) {
   out[1] = z;
 
   return out;
+}
+
+export function compute_flight_paths(buffer) {
+  const array = new Uint16Array(buffer);
+
+  let vertices = [];
+
+  for (let i = 0; i < array.length; i += 3) {
+    const [from_lon, from_lat, from_china] = airports[array[i]];
+    const [to_lon, to_lat, to_china] = airports[array[i + 1]];
+    const count = array[i + 2];
+    vertices.push(...project(from_lon, from_lat), ...project(to_lon, to_lat));
+  }
+
+  vertices = []
+  airports.forEach(([lon, lat]) => {
+    vertices.push(...project(lon, lat));
+  });
+  vertices.push(0, 0);
+
+  return new Float32Array(vertices);
 }
 
 export function compute_vertices(buffer) {
@@ -27,10 +51,10 @@ export function compute_vertices(buffer) {
   for (let i = 0; i < indices.length; i += 1) {
     const len = indices[i];
 
-    let a = equirectangular_project(coords[v++], coords[v++]);
+    let a = project(coords[v++], coords[v++]);
 
     for (let j = 1; j < len; j += 1) {
-      const b = equirectangular_project(coords[v++], coords[v++]);
+      const b = project(coords[v++], coords[v++]);
 
       vertices.push(...a, ...b);
 

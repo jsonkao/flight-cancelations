@@ -1,6 +1,9 @@
 import createREGL from 'regl';
-import { compute_vertices } from './vertices';
+import { compute_vertices, compute_flight_paths } from './vertices';
+import airports from './airports.json';
 
+import pointsFrag from './shaders/points.frag';
+import pointsVert from './shaders/points.vert';
 import borderFrag from './shaders/borders.frag';
 import borderVert from './shaders/borders.vert';
 import textureFrag from './shaders/texture.frag';
@@ -30,30 +33,43 @@ async function getTexture(filename) {
   });
 }
 
+function createLineDrawer(vertices) {
+  return regl({
+    frag: borderFrag,
+    vert: borderVert,
+
+    uniforms: { aspectRatio, },
+
+    attributes: { position: vertices },
+
+    count: vertices.length / 2,
+    primitive: 'lines',
+  });
+}
+
 async function main() {
-  const [vertices, landTexture, monoTexture] = await Promise.all([
+  const [borders, landTexture, monoTexture, flights] = await Promise.all([
     getVertices(),
     // getTexture('specularity@2x.png'),
     // getTexture('mono@2x.png'),
     getTexture(spec),
     getTexture(mono),
+    getFlights(),
   ]);
 
-  const drawBorders = regl({
-    frag: borderFrag,
-    vert: borderVert,
+  const drawBorders = createLineDrawer(borders);
 
-    uniforms: {
-      aspectRatio,
-    },
+  const drawFlights = regl({
+    frag: pointsFrag,
+    vert: pointsVert,
 
-    attributes: {
-      position: vertices,
-    },
+    uniforms: { aspectRatio, },
 
-    count: vertices.length / 2,
-    primitive: 'lines',
-  });
+    attributes: { position: flights, fromChina: flights.map((_, i) => airports[i % airports.length][2]) },
+
+    count: flights.length / 2,
+    primitive: 'points',
+  })
 
   const drawTexture = regl({
     frag: textureFrag,
@@ -87,14 +103,15 @@ async function main() {
       depth: 1,
     });
     drawBorders();
+    drawFlights();
     drawTexture({ tick });
   });
 }
 
-async function test() {
-  const res = await fetch(`${base}/20200123.dat`);
-  const buf = await res.arrayBuffer();
-  console.log(new Uint16Array(buf));
+async function getFlights() {
+  return fetch(`${base}/20200123.dat`)
+    .then(response => response.arrayBuffer())
+    .then(buffer => compute_flight_paths(buffer));
 }
 
 main().catch(console.error);
