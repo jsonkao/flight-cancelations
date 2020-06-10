@@ -27,7 +27,6 @@ export function compute_flight_paths(buffer) {
   for (let i = 0; i < array.length; i += 3) {
     const [from_lon, from_lat, from_china] = airports[array[i]];
     const [to_lon, to_lat, to_china] = airports[array[i + 1]];
-    // const count = array[i + 2];
 
     const depart_point = project(from_lon, from_lat);
     const arrive_point = project(to_lon, to_lat);
@@ -37,7 +36,10 @@ export function compute_flight_paths(buffer) {
     const [depart_x, depart_y] = depart_point;
     const [arrive_x, arrive_y] = arrive_point;
 
-    const SIZE = 0.01;
+    // Treat each point as the centroid of a triangle. Construct a triangle
+    // with vertices 0deg, 120deg, and 240deg from the angle of the flight.
+
+    const SIZE = 0.025; // Also equals 2/3 * altitude because we're at centroid
     const vector_angle = Math.atan2(arrive_y - depart_y, arrive_x - depart_x);
 
     for (let j = 0; j < 3; j++) {
