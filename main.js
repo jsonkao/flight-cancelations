@@ -1,10 +1,10 @@
 import createREGL from 'regl';
 import { compute_vertices, compute_flight_paths } from './vertices';
 
-import pointsFrag from './shaders/points.frag';
-import pointsVert from './shaders/points.vert';
-import borderFrag from './shaders/borders.frag';
-import borderVert from './shaders/borders.vert';
+import flightsFrag from './shaders/flights.frag';
+import flightsVert from './shaders/flights.vert';
+import bordersFrag from './shaders/borders.frag';
+import bordersVert from './shaders/borders.vert';
 import textureFrag from './shaders/texture.frag';
 import textureVert from './shaders/texture.vert';
 
@@ -39,8 +39,8 @@ async function getFlights() {
 
 function createLineDrawer(vertices) {
   return regl({
-    frag: borderFrag,
-    vert: borderVert,
+    frag: bordersFrag,
+    vert: bordersVert,
 
     uniforms: { aspectRatio },
 
@@ -64,14 +64,21 @@ async function main() {
   const drawBorders = createLineDrawer(borders);
 
   const drawFlights = regl({
-    frag: pointsFrag,
-    vert: pointsVert,
+    frag: flightsFrag,
+    vert: flightsVert,
 
-    uniforms: { aspectRatio },
+    uniforms: {
+      aspectRatio,
+      speed: 0.0001,
+      elapsed: regl.prop('elapsed'),
+    },
 
-    attributes: { position: flights.vertices, fromChina: flights.fromChina },
+    attributes: {
+      depart_point: flights.depart_points,
+      arrive_point: flights.arrive_points,
+    },
 
-    count: flights.vertices.length / 2,
+    count: flights.depart_points.length / 2,
     primitive: 'points',
   });
 
@@ -101,13 +108,13 @@ async function main() {
     count: 6,
   });
 
-  regl.frame(({ tick }) => {
+  regl.frame(({ time, tick }) => {
     regl.clear({
       color: [0, 0, 0, 0],
       depth: 1,
     });
 
-    drawFlights();
+    drawFlights({ elapsed: time * 1000 });
     drawBorders();
     drawTexture({ tick });
   });
