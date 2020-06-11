@@ -4,12 +4,12 @@ precision mediump float;
 
 uniform sampler2D landTexture;
 uniform sampler2D monoTexture;
-uniform float tick;
+uniform float longitude_offset;
 
 varying vec2 v_position;
 
 vec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);
-float LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));
+float LIGHT_MAG = length(LIGHT_REVERSED);
 
 void main() {
 
@@ -33,9 +33,9 @@ void main() {
 
   // 2. Invert projection to get spherical coordinates
 
-  float depth = sqrt(1. - c);        // Purposefully ignoring negative face
-  float longitude = atan(x / depth) + PI / 2.; // [-PI / 2, PI / 2]
-  float latitude = asin(y);          // [-PI / 2, PI / 2]
+  float depth = sqrt(1. - c); // Purposefully ignoring negative face
+  float longitude = atan(x / depth) + longitude_offset; // [-PI / 2, PI / 2]
+  float latitude = asin(y);                             // [-PI / 2, PI / 2]
 
   // 3. Do equirectangular projection to get plane/texture coordinates
   //    For longitude: Map to [0.25, 0.75] (center is 0.5, range is 0.5)

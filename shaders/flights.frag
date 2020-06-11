@@ -1,6 +1,6 @@
 precision mediump float;
 
-uniform sampler2D plane_texture;
+uniform sampler2D planeTexture;
 
 varying vec2 v_position;
 
@@ -15,9 +15,7 @@ void main() {
   // Final adjustments since there's some padding on airplane.png
   position.y += 0.2;
 
-  vec4 texture_color = texture2D(plane_texture, position);
+  vec4 texture_color = texture2D(planeTexture, position);
 
   gl_FragColor = vec4(0.67, 0.02, 0.31, texture_color.a);
-  // gl_FragColor = vec4(0.67, 0.02, 0.31, 1);
-  // gl_FragColor.rgb *= texture_color.a;
 }

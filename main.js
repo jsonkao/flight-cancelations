@@ -1,5 +1,5 @@
 import createREGL from 'regl';
-import { compute_vertices, compute_flight_paths } from './vertices';
+import { compute_borders, compute_flight_paths } from './vertices';
 
 import flightsFrag from './shaders/flights.frag';
 import flightsVert from './shaders/flights.vert';
@@ -11,8 +11,8 @@ import textureVert from './shaders/texture.vert';
 import specImg from './specularity@2x.png';
 import monoImg from './mono@2x.png';
 import planeImg from './airplane.png';
-import borders from './borders.dat';
-import flightFile from './20200123.dat';
+import borderData from './borders.dat';
+import flightData from './20200123.dat';
 
 const regl = createREGL();
 
@@ -20,9 +20,9 @@ const base =
   'https://static01.nyt.com/newsgraphics/2020/02/04/coronavirus-flights/67d5b188d41684d2a82da11e94e358b4a769735e';
 
 async function getBorders() {
-  return fetch(`./${borders}`)
+  return fetch(`./${borderData}`)
     .then(response => response.arrayBuffer())
-    .then(buffer => compute_vertices(buffer));
+    .then(buffer => compute_borders(buffer));
 }
 
 async function getTexture(filename) {
@@ -35,18 +35,31 @@ async function getTexture(filename) {
 }
 
 async function getFlights() {
-  return fetch(`./${flightFile}`)
+  return fetch(`./${flightData}`)
     .then(response => response.arrayBuffer())
     .then(buffer => compute_flight_paths(buffer));
 }
+
+const longitude_offset = regl.prop('longitude_offset');
 
 function createLineDrawer(vertices) {
   return regl({
     frag: bordersFrag,
     vert: bordersVert,
 
-    uniforms: { aspectRatio },
+    uniforms: {
+      aspectRatio,
+      longitude_offset,
+    },
 
+    blend: {
+      enable: true,
+      func: {
+        src: 'src alpha',
+        dst: 'one minus src alpha',
+      },
+    },
+    depth: { enable: false },
     attributes: { position: vertices },
 
     count: vertices.length / 2,
@@ -76,8 +89,9 @@ async function main() {
     vert: flightsVert,
 
     uniforms: {
-      plane_texture: planeTexture,
+      planeTexture,
       size,
+      longitude_offset,
 
       speed: 0.0001,
       elapsed: regl.prop('elapsed'),
@@ -107,8 +121,8 @@ async function main() {
     uniforms: {
       landTexture,
       monoTexture,
-      tick: regl.prop('tick'),
       aspectRatio,
+      longitude_offset,
     },
 
     attributes: {
@@ -126,15 +140,17 @@ async function main() {
     count: 6,
   });
 
-  regl.frame(({ time, tick }) => {
+  regl.frame(({ time }) => {
     regl.clear({
       color: [0, 0, 0, 0],
       depth: 1,
     });
 
-    drawBorders();
-    drawTexture({ tick });
-    drawFlights({ elapsed: time * 1000 });
+    const longitude_offset = time / 5;
+
+    drawTexture({ longitude_offset });
+    drawBorders({ longitude_offset });
+    // drawFlights({ longitude_offset, elapsed: time * 1000 });
   });
 }
 

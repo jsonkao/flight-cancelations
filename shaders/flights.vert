@@ -1,19 +1,18 @@
-#define PI 3.1415926538
-
 #pragma glslify: project = require(./project)
+
+#define PI 3.1415926538
 
 precision mediump float;
 
 uniform vec2 aspectRatio;
+uniform float longitude_offset;
 
 uniform float elapsed;
 uniform float speed;
-
 uniform float size;
 
 attribute vec2 a_depart_point;
 attribute vec2 a_arrive_point;
-
 attribute vec2 a_depart_center;
 attribute vec2 a_arrive_center;
 
@@ -23,11 +22,15 @@ mat2 rotate2d(float _angle) {
   return mat2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle));
 }
 
+vec2 project_with_offset(vec2 point) {
+  return project(point, longitude_offset);
+}
+
 void main() {
-  vec2 depart_point = project(a_depart_point);
-  vec2 arrive_point = project(a_arrive_point);
-  vec2 depart_center = project(a_depart_center);
-  vec2 arrive_center = project(a_arrive_center);
+  vec2 depart_point = project_with_offset(a_depart_point);
+  vec2 arrive_point = project_with_offset(a_arrive_point);
+  vec2 depart_center = project_with_offset(a_depart_center);
+  vec2 arrive_center = project_with_offset(a_arrive_center);
 
   float travel_time = distance(depart_center, arrive_center) / speed;
   float t = mod(elapsed / travel_time, 1.);
