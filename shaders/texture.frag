@@ -46,7 +46,7 @@ void main() {
 
   // 4. Grab texture colors. Black = land, white = no land.
 
-  vec2 texture_position = vec2(texture_x, texture_y);
+  vec2 texture_position = vec2(mod(texture_x 1.0), texture_y);
   vec3 texture_color = texture2D(landTexture, texture_position).rgb;
   vec3 mono_color = texture2D(monoTexture, texture_position).rgb;
 
