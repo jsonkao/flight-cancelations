@@ -11,6 +11,8 @@ import textureVert from './shaders/texture.vert';
 import specImg from './specularity@2x.png';
 import monoImg from './mono@2x.png';
 import planeImg from './airplane.png';
+import borders from './borders.dat';
+import flightFile from './20200123.dat';
 
 const regl = createREGL();
 
@@ -18,7 +20,7 @@ const base =
   'https://static01.nyt.com/newsgraphics/2020/02/04/coronavirus-flights/67d5b188d41684d2a82da11e94e358b4a769735e';
 
 async function getBorders() {
-  return fetch(`${base}/geometry/borders.dat`)
+  return fetch(`./${borders}`)
     .then(response => response.arrayBuffer())
     .then(buffer => compute_vertices(buffer));
 }
@@ -33,7 +35,7 @@ async function getTexture(filename) {
 }
 
 async function getFlights() {
-  return fetch(`${base}/20200123.dat`)
+  return fetch(`./${flightFile}`)
     .then(response => response.arrayBuffer())
     .then(buffer => compute_flight_paths(buffer));
 }
@@ -86,12 +88,9 @@ async function main() {
       aspectRatio,
     },
 
-    attributes: {
-      depart_point: pointAttr(flights.depart_points),
-      arrive_point: pointAttr(flights.arrive_points),
-    },
+    attributes: flights,
 
-    count: flights.depart_points.length / 3,
+    count: flights.depart_point.length / 3,
     primitive: 'triangles',
   });
 
