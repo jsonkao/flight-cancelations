@@ -94,7 +94,7 @@ async function main() {
         dst: 'one minus src alpha',
       },
     },
-    // depth: { enable: false },
+    depth: { enable: false },
 
     count: flights.depart_point.length / 3,
     primitive: 'triangles',
@@ -132,9 +132,9 @@ async function main() {
       depth: 1,
     });
 
-    drawFlights({ elapsed: time * 1000 });
     drawBorders();
     drawTexture({ tick });
+    drawFlights({ elapsed: time * 1000 });
   });
 }
 
