@@ -6,15 +6,9 @@ export function compute_flight_paths(buffer) {
   // [lon, lat, is_china]
   const array = new Uint16Array(buffer);
 
-  const depart_points = [];
-  const arrive_points = [];
-
   const depart_centers = [];
   const arrive_centers = [];
-
   const point_index = [];
-
-  const size = 0.03; // Also equals 2/3 * altitude because we're at centroid
 
   for (let i = 0; i < array.length; i += 3) {
     const [depart_lon, depart_lat, depart_china] = airports[array[i]];
@@ -22,18 +16,9 @@ export function compute_flight_paths(buffer) {
 
     // Treat each point as the centroid of a triangle. Construct a triangle
     // with vertices 0deg, 120deg, and 240deg from the angle of the flight.
-
-    const vector_angle = Math.atan2(arrive_lat - depart_lat, arrive_lon - depart_lon);
+    // This actually happens in the vertex shader, this is just ammunition.
 
     for (let j = 0; j < 3; j++) {
-      const theta = vector_angle - j * (2 / 3) * Math.PI;
-
-      const dx = size * Math.cos(theta);
-      const dy = size * Math.sin(theta);
-
-      depart_points.push(depart_lon + dx, depart_lat + dy);
-      arrive_points.push(arrive_lon + dx, arrive_lat + dy);
-
       depart_centers.push(depart_lon, depart_lat);
       arrive_centers.push(arrive_lon, arrive_lat);
       point_index.push(j);
@@ -41,12 +26,9 @@ export function compute_flight_paths(buffer) {
   }
 
   return {
-    // a_depart_point: depart_points,
-    // a_arrive_point: arrive_points,
     a_depart_center: depart_centers,
     a_arrive_center: arrive_centers,
     point_index,
-    size,
   };
 }
 

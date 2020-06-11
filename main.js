@@ -70,7 +70,7 @@ function createLineDrawer(vertices) {
 async function main() {
   const [
     borders,
-    { size, ...flights },
+    flights,
     landTexture,
     monoTexture,
     planeTexture,
@@ -90,13 +90,12 @@ async function main() {
 
     uniforms: {
       planeTexture,
-      size,
       longitude_offset,
-
-      speed: 0.0001,
       elapsed: regl.prop('elapsed'),
-
       aspectRatio,
+
+      speed: 0.001,
+      size: 0.03, // Also equals 2/3 * altitude because we're at centroid
     },
 
     attributes: flights,
@@ -141,11 +140,6 @@ async function main() {
   });
 
   regl.frame(({ time }) => {
-    regl.clear({
-      color: [0, 0, 0, 0],
-      depth: 1,
-    });
-
     const longitude_offset = time / 5;
     // let longitude_offset = Math.PI / 2;
 
