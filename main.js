@@ -140,8 +140,8 @@ async function main() {
   });
 
   regl.frame(({ time }) => {
-    const longitude_offset = time / 10;
-    // let longitude_offset = Math.PI / 2;
+    // const longitude_offset = time / 10;
+    let longitude_offset = Math.PI / 2;
 
     drawTexture({ longitude_offset });
     drawBorders({ longitude_offset });

@@ -3,8 +3,13 @@ precision mediump float;
 uniform sampler2D planeTexture;
 
 varying vec2 v_position;
+varying float v_depth;
 
 void main() {
+  if (v_depth < 0.) {
+    discard;
+  }
+
   vec2 position = v_position;
 
   // Scale a bit relative to (0.5, 0.5) (the center of the image)

@@ -18,37 +18,41 @@ attribute vec2 a_arrive_center;
 attribute float point_index;
 
 varying vec2 v_position;
+varying float v_depth;
 
 mat2 rotate2d(float _angle) {
   return mat2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle));
 }
 
-vec2 project_with_offset(vec2 point) {
-  return project(point, longitude_offset).xy;
+vec3 project_with_offset(vec2 point) {
+  return project(point, longitude_offset);
 }
 
 void main() {
-  vec2 depart_center = project_with_offset(a_depart_center);
-  vec2 arrive_center = project_with_offset(a_arrive_center);
+  vec3 depart_center = project_with_offset(a_depart_center);
+  vec3 arrive_center = project_with_offset(a_arrive_center);
 
-  vec2 span = arrive_center - depart_center;
+  vec3 span = arrive_center - depart_center;
   float angle = atan(span.y, span.x);
-
   float theta = angle - point_index * (2. / 3.) * PI;
-  vec2 delta = size * vec2(cos(theta), sin(theta));
 
-  vec2 depart_point = depart_center + delta;
-  vec2 arrive_point = arrive_center + delta;
+  vec3 delta = size * vec3(cos(theta), sin(theta), 0);
 
+  vec3 depart_point = depart_center + delta;
+  vec3 arrive_point = arrive_center + delta;
+
+  // TODO: adjust for the curvature of the Earth
   float travel_time = distance(depart_center, arrive_center) / speed;
   float t = mod(elapsed / travel_time, 1.);
 
-  vec2 position = mix(depart_point, arrive_point, t);
-  vec2 center = mix(depart_center, arrive_center, t);
+  vec3 position = mix(depart_point, arrive_point, t);
+  vec3 center = mix(depart_center, arrive_center, t);
+
+  v_depth = position.z;
 
   // 1. Center triangle at the origin
 
-  v_position = position - center;
+  v_position = (position - center).xy;
 
   // 2. Rotate so that the triangle points up
 
@@ -65,5 +69,5 @@ void main() {
 
   v_position += vec2(0.5, sqrt(3.) / 6.);
 
-  gl_Position = vec4(position / aspectRatio, 0, 1);
+  gl_Position = vec4(position.xy / aspectRatio, 0, 1);
 }

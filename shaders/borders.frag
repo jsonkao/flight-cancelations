@@ -3,9 +3,8 @@ precision mediump float;
 varying float v_depth;
 
 void main() {
-  // v_depth is less than 1 when one vertex has a depth < 0.
-  // Doing < 1 not == 0 because varyings are interpolated
-  if (v_depth < 1.) {
+  // Discard when depth is negative, whether interpolated or not.
+  if (v_depth < 0.) {
     discard;
   }
 
