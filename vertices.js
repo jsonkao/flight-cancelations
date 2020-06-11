@@ -12,9 +12,11 @@ export function compute_flight_paths(buffer) {
   const depart_centers = [];
   const arrive_centers = [];
 
-  const size = 3; // Also equals 2/3 * altitude because we're at centroid
+  const point_index = [];
 
-  for (let i = 0; i < 30; i += 3) {
+  const size = 0.03; // Also equals 2/3 * altitude because we're at centroid
+
+  for (let i = 0; i < array.length; i += 3) {
     const [depart_lon, depart_lat, depart_china] = airports[array[i]];
     const [arrive_lon, arrive_lat, arrive_china] = airports[array[i + 1]];
 
@@ -34,14 +36,16 @@ export function compute_flight_paths(buffer) {
 
       depart_centers.push(depart_lon, depart_lat);
       arrive_centers.push(arrive_lon, arrive_lat);
+      point_index.push(j);
     }
   }
 
   return {
-    a_depart_point: depart_points,
-    a_arrive_point: arrive_points,
+    // a_depart_point: depart_points,
+    // a_arrive_point: arrive_points,
     a_depart_center: depart_centers,
     a_arrive_center: arrive_centers,
+    point_index,
     size,
   };
 }

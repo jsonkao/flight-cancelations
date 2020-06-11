@@ -11,10 +11,11 @@ uniform float elapsed;
 uniform float speed;
 uniform float size;
 
-attribute vec2 a_depart_point;
-attribute vec2 a_arrive_point;
+// attribute vec2 a_depart_point;
+// attribute vec2 a_arrive_point;
 attribute vec2 a_depart_center;
 attribute vec2 a_arrive_center;
+attribute float point_index;
 
 varying vec2 v_position;
 
@@ -27,10 +28,17 @@ vec2 project_with_offset(vec2 point) {
 }
 
 void main() {
-  vec2 depart_point = project_with_offset(a_depart_point);
-  vec2 arrive_point = project_with_offset(a_arrive_point);
   vec2 depart_center = project_with_offset(a_depart_center);
   vec2 arrive_center = project_with_offset(a_arrive_center);
+
+  vec2 span = arrive_center - depart_center;
+  float angle = atan(span.y, span.x);
+
+  float theta = angle - point_index * (2. / 3.) * PI;
+  vec2 delta = size * vec2(cos(theta), sin(theta));
+
+  vec2 depart_point = depart_center + delta;
+  vec2 arrive_point = arrive_center + delta;
 
   float travel_time = distance(depart_center, arrive_center) / speed;
   float t = mod(elapsed / travel_time, 1.);
@@ -44,8 +52,6 @@ void main() {
 
   // 2. Rotate so that the triangle points up
 
-  vec2 span = arrive_point - depart_point;
-  float angle = atan(span.y, span.x);
   float desired_angle = PI / 2.;
   v_position *= rotate2d(desired_angle - angle);
 

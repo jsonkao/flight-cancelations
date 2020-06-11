@@ -110,7 +110,7 @@ async function main() {
     },
     depth: { enable: false },
 
-    count: flights.a_depart_point.length / 3,
+    count: flights.a_depart_center.length / 3,
     primitive: 'triangles',
   });
 
@@ -147,10 +147,11 @@ async function main() {
     });
 
     const longitude_offset = time / 5;
+    // let longitude_offset = Math.PI / 2;
 
     drawTexture({ longitude_offset });
     drawBorders({ longitude_offset });
-    // drawFlights({ longitude_offset, elapsed: time * 1000 });
+    drawFlights({ longitude_offset, elapsed: time * 1000 });
   });
 }
 
