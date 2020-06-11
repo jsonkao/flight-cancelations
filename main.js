@@ -96,7 +96,7 @@ async function main() {
     },
     depth: { enable: false },
 
-    count: flights.depart_point.length / 3,
+    count: flights.a_depart_point.length / 3,
     primitive: 'triangles',
   });
 

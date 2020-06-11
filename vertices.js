@@ -12,6 +12,7 @@ function project(lon, lat) {
 
   if (x < 0) return false;
 
+  return [lon, lat];
   return new Float32Array([y, z]);
 }
 
@@ -29,9 +30,9 @@ export function compute_flight_paths(buffer) {
 
   const point_index = [];
 
-  const size = 0.03; // Also equals 2/3 * altitude because we're at centroid
+  const size = 3; // Also equals 2/3 * altitude because we're at centroid
 
-  for (let i = 0; i < array.length; i += 3) {
+  for (let i = 0; i < 30; i += 3) {
     const [from_lon, from_lat, from_china] = airports[array[i]];
     const [to_lon, to_lat, to_china] = airports[array[i + 1]];
 
@@ -59,17 +60,14 @@ export function compute_flight_paths(buffer) {
 
       depart_centers.push(depart_x, depart_y);
       arrive_centers.push(arrive_x, arrive_y);
-
-      point_index.push(j);
     }
   }
 
   return {
-    depart_point: depart_points,
-    arrive_point: arrive_points,
-    depart_center: depart_centers,
-    arrive_center: arrive_centers,
-    point_index,
+    a_depart_point: depart_points,
+    a_arrive_point: arrive_points,
+    a_depart_center: depart_centers,
+    a_arrive_center: arrive_centers,
     size,
   };
 }
