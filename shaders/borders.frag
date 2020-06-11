@@ -1,10 +1,11 @@
 precision mediump float;
 
-varying float v_is_facing;
+varying float v_depth;
 
 void main() {
-  // (< 1) not (== 0) because because varyings are interpolated
-  if (v_is_facing < 1.) {
+  // v_depth is less than 1 when one vertex has a depth < 0.
+  // Doing < 1 not == 0 because varyings are interpolated
+  if (v_depth < 1.) {
     discard;
   }
 

@@ -24,7 +24,7 @@ mat2 rotate2d(float _angle) {
 }
 
 vec2 project_with_offset(vec2 point) {
-  return project(point, longitude_offset);
+  return project(point, longitude_offset).xy;
 }
 
 void main() {

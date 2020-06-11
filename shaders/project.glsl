@@ -2,7 +2,7 @@ precision mediump float;
 
 #define PI 3.1415926538
 
-vec2 project(vec2 point, float longitude_offset) {
+vec3 project(vec2 point, float longitude_offset) {
   point *= PI / 180.;
   float lon = point[0];
   float lat = point[1];
@@ -14,10 +14,7 @@ vec2 project(vec2 point, float longitude_offset) {
   float x = sin(inclination) * sin(azimuth);
   float y = cos(inclination);
 
-  float is_behind = 1. - step(0., depth);
-
-  // if hemisphere is behind, return -2
-  return vec2((1. - is_behind) * x + is_behind * -2., y);
+  return vec3(x, y, depth);
 }
 
 #pragma glslify: export(project)

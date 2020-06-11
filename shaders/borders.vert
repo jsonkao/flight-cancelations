@@ -7,13 +7,13 @@ uniform float longitude_offset;
 
 attribute vec2 position;
 
-varying float v_is_facing;
+varying float v_depth;
 
 void main() {
-  vec2 projected_position = project(position, longitude_offset);
+  vec3 projected_position = project(position, longitude_offset);
 
-  // is 1 if projected position is in front facing hemisphere
-  v_is_facing = step(-1., projected_position.x);
+  // 0 if negative, 1 if positive
+  v_depth = step(0., projected_position.z);
 
-  gl_Position = vec4(projected_position / aspectRatio, 0, 1);
+  gl_Position = vec4(projected_position.xy / aspectRatio, 0, 1);
 }

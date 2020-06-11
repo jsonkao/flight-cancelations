@@ -140,12 +140,12 @@ async function main() {
   });
 
   regl.frame(({ time }) => {
-    const longitude_offset = time / 5;
+    const longitude_offset = time / 10;
     // let longitude_offset = Math.PI / 2;
 
     drawTexture({ longitude_offset });
     drawBorders({ longitude_offset });
-    drawFlights({ longitude_offset, elapsed: time * 1000 });
+    // drawFlights({ longitude_offset, elapsed: time * 1000 });
   });
 }
 
