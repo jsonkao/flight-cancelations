@@ -10220,8 +10220,9 @@ function compute_flight_paths(buffer) {
   const depart_centers = [];
   const arrive_centers = [];
   const point_index = [];
+  const size = 0.03; // Also equals 2/3 * altitude because we're at centroid
 
-  for (let i = 0; i < 20; i += 3) {
+  for (let i = 0; i < array.length; i += 3) {
     const [from_lon, from_lat, from_china] = _airports.default[array[i]];
     const [to_lon, to_lat, to_china] = _airports.default[array[i + 1]];
     const depart_point = project(from_lon, from_lat);
@@ -10231,14 +10232,12 @@ function compute_flight_paths(buffer) {
     const [arrive_x, arrive_y] = arrive_point; // Treat each point as the centroid of a triangle. Construct a triangle
     // with vertices 0deg, 120deg, and 240deg from the angle of the flight.
 
-    const SIZE = 0.1; // Also equals 2/3 * altitude because we're at centroid
-
     const vector_angle = Math.atan2(arrive_y - depart_y, arrive_x - depart_x);
 
     for (let j = 0; j < 3; j++) {
       const theta = vector_angle - j * (2 / 3) * Math.PI;
-      const dx = SIZE * Math.cos(theta);
-      const dy = SIZE * Math.sin(theta);
+      const dx = size * Math.cos(theta);
+      const dy = size * Math.sin(theta);
       depart_points.push(depart_x + dx, depart_y + dy);
       arrive_points.push(arrive_x + dx, arrive_y + dy);
       depart_centers.push(depart_x, depart_y);
@@ -10252,7 +10251,8 @@ function compute_flight_paths(buffer) {
     arrive_point: arrive_points,
     depart_center: depart_centers,
     arrive_center: arrive_centers,
-    point_index
+    point_index,
+    size
   };
 }
 
@@ -10281,15 +10281,15 @@ function compute_vertices(buffer) {
   return new Float32Array(vertices);
 }
 },{"./airports.json":"airports.json"}],"shaders/flights.frag":[function(require,module,exports) {
-module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nvarying vec2 v_position;\nvarying vec2 v_position_adj;\nvarying vec2 v_center;\nvarying float v_point_index;\n\nmat2 rotate2d(float _angle) {\n  return mat2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle));\n}\n\nfloat SIZE = 0.05;\n\nvoid main() {\n\n  // Goal: Get position in texture space (0, 0) -> (1, 1)\n\n  vec2 position = v_position;\n\n  // 1. Translate by negative center\n  position -= v_center;\n  // 2. Rotate by negative angle\n  float angle = atan(position.y, position.x) - v_point_index * (2. / 3.) * PI;\n  position *= rotate2d(-angle);\n  // 3. Scale by 1 / SIZE\n  position /= SIZE;\n  // 4. Translate up so baseline is 0\n  // position += vec2(SIZE * sqrt(1. / 3.), SIZE / 2.);\n\n  // gl_FragColor = vec4(floor(v_point_index + 0.5) / 2., 0, 0, 1.);\n  \n  // same result as using position-adj\n  gl_FragColor = vec4((v_position - v_center).x * 20., -(v_position - v_center).x * 10., 0, 1);\n}\n";
+module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D plane_texture;\n\nvarying vec2 v_position;\n\nvoid main() {\n  vec2 position = v_position;\n\n  // Scale a bit relative to (0.5, 0.5) (the center of the image)\n  position -= vec2(0.5);\n  position *= 1.15;\n  position += vec2(0.5);\n\n  // Final adjustments since there's some padding on airplane.png\n  position.y += 0.2;\n\n  vec4 texture_color = texture2D(plane_texture, position);\n\n  gl_FragColor = vec4(0.67, 0.02, 0.31, texture_color.a);\n  // gl_FragColor = vec4(0.67, 0.02, 0.31, 1);\n  // gl_FragColor.rgb *= texture_color.a;\n}\n";
 },{}],"shaders/flights.vert":[function(require,module,exports) {
-module.exports = "precision mediump float;\n#define GLSLIFY 1\n#define PI 3.1415926538\nuniform sampler2D plane_texture;\nuniform vec2 aspectRatio;\n\nuniform float elapsed;\nuniform float speed;\n\nattribute vec2 depart_point;\nattribute vec2 arrive_point;\n\nattribute float point_index;\n\n// TODO: remove since we have point_index\nattribute vec2 depart_center;\nattribute vec2 arrive_center;\n\nvarying vec2 v_position;\nvarying vec2 v_position_adj;\nvarying vec2 v_center;\nvarying float v_point_index;\n\nmat2 rotate2d(float _angle){\n    return mat2(cos(_angle),-sin(_angle),\n                sin(_angle),cos(_angle));\n}\n\nvoid main() {\n  float travel_time = distance(depart_point, arrive_point) / speed;\n  float t = mod(elapsed / travel_time, 1.);\n  t = 0.;\n\n  vec2 position = mix(depart_point, arrive_point, t);\n  vec2 center = mix(depart_center, arrive_center, t);\n\n  v_position = position;\n  v_position_adj = position - center;\n  float angle = atan(v_position.y, v_position.x) - v_point_index * (2. / 3.) * PI;\n  // v_position *= rotate2d(-angle);\n  v_center = center;\n  v_point_index = point_index;\n\n  gl_Position = vec4(position / aspectRatio, 0, 1);\n  // gl_Position = vec4(depart_point / aspectRatio, 0, 1);\n}\n";
+module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nuniform float elapsed;\nuniform float speed;\n\nuniform float size;\n\nattribute vec2 depart_point;\nattribute vec2 arrive_point;\n\nattribute float point_index;\n\n// TODO: remove since we have point_index\nattribute vec2 depart_center;\nattribute vec2 arrive_center;\n\nvarying vec2 v_position;\n\nmat2 rotate2d(float _angle) {\n  return mat2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle));\n}\n\nvoid main() {\n  float travel_time = distance(depart_point, arrive_point) / speed;\n  float t = mod(elapsed / travel_time, 1.);\n\n  vec2 position = mix(depart_point, arrive_point, t);\n  vec2 center = mix(depart_center, arrive_center, t);\n\n  // 1. Center triangle at the origin\n\n  v_position = position - center;\n\n  // 2. Rotate so that the triangle points up\n\n  vec2 span = arrive_point - depart_point;\n  float angle = atan(span.y, span.x);\n  float desired_angle = PI / 2.;\n  v_position *= rotate2d(desired_angle - angle);\n\n  // 3. Shrink triangle by SIZE. The result is a triangle with altitude =\n  // 1 + 1/2 and a side length of √3. We want a side length of 1, so we shrink\n  // the triangle again by √3.\n\n  v_position /= size;\n  v_position /= sqrt(3.);\n\n  // 4, Now just place triangle bottom left tip at (0, 0)\n\n  v_position += vec2(0.5, sqrt(3.) / 6.);\n\n  // 5. Ensure plane fits somehow\n\n  gl_Position = vec4(position / aspectRatio, 0, 1);\n  // gl_Position = vec4(depart_point / aspectRatio, 0, 1);\n}\n";
 },{}],"shaders/borders.frag":[function(require,module,exports) {
 module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvoid main() {\n  gl_FragColor = vec4(vec3(230. / 255.), 1.);\n}\n";
 },{}],"shaders/borders.vert":[function(require,module,exports) {
 module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\n\nvoid main() {\n  gl_Position = vec4(position / aspectRatio, 0, 1);\n}\n";
 },{}],"shaders/texture.frag":[function(require,module,exports) {
-module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D landTexture;\nuniform sampler2D monoTexture;\nuniform float tick;\n\nvarying vec2 v_position;\n\nvec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);\nfloat LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));\n\nvoid main() {\n\n  // The screen is the tangent plane. Each (x, y) we treat as an\n  // orthographically projected point of the front-facing hemisphere.\n  // The textures are equirectangular projections, which means the position of\n  // an image pixel is just the longitude-latitude.\n  // For each fragment, then, we must figure out the corresponding lat-long to\n  // retrieve the correct image pixel.\n\n  // 1. Define the projected coordinates.\n  //    Discard fragments outside the great circle.\n\n  float x = v_position.x;\n  float y = v_position.y;\n  float c = x * x + y * y; // Distance from center of orthographic projection\n\n  if (sqrt(c) > 1.) {\n    discard;\n  }\n\n  // 2. Invert projection to get spherical coordinates\n\n  float depth = sqrt(1. - c);        // Purposefully ignoring negative face\n  float longitude = atan(x / depth) + PI / 2. - tick / 400.; // [-PI / 2, PI / 2]\n  float latitude = asin(y);          // [-PI / 2, PI / 2]\n\n  // 3. Do equirectangular projection to get plane/texture coordinates\n  //    For longitude: Map to [0.25, 0.75] (center is 0.5, range is 0.5)\n  //    For latitude: Map to [0, 1] (center is 0.5, range is 0.5)\n\n  float texture_x = (longitude + PI) / (2. * PI);\n  float texture_y = (latitude + PI / 2.) / PI;\n\n  // 4. Grab texture colors. Black = land, white = no land.\n\n  vec2 texture_position = vec2(texture_x, texture_y);\n  vec3 texture_color = texture2D(landTexture, texture_position).rgb;\n  vec3 mono_color = texture2D(monoTexture, texture_position).rgb;\n\n  texture_color += vec3(240. / 255.) * mono_color;\n\n  // 5. Calculate lighting.\n\n  float dotted = dot(vec3(x, y, depth), LIGHT_REVERSED) / LIGHT_MAG;\n  float light = sign(dotted) * pow(dotted, 1.2);\n  light = min(1.0, 0.55 + light * 0.3);\n\n  gl_FragColor = vec4(texture_color, 1.);\n  gl_FragColor.rgb *= light;\n}\n";
+module.exports = "#define PI 3.1415926538\n\nprecision mediump float;\n#define GLSLIFY 1\n\nuniform sampler2D landTexture;\nuniform sampler2D monoTexture;\nuniform float tick;\n\nvarying vec2 v_position;\n\nvec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);\nfloat LIGHT_MAG = distance(LIGHT_REVERSED, vec3(0));\n\nvoid main() {\n\n  // The screen is the tangent plane. Each (x, y) we treat as an\n  // orthographically projected point of the front-facing hemisphere.\n  // The textures are equirectangular projections, which means the position of\n  // an image pixel is just the longitude-latitude.\n  // For each fragment, then, we must figure out the corresponding lat-long to\n  // retrieve the correct image pixel.\n\n  // 1. Define the projected coordinates.\n  //    Discard fragments outside the great circle.\n\n  float x = v_position.x;\n  float y = v_position.y;\n  float c = x * x + y * y; // Distance from center of orthographic projection\n\n  if (sqrt(c) > 1.) {\n    discard;\n  }\n\n  // 2. Invert projection to get spherical coordinates\n\n  float depth = sqrt(1. - c);        // Purposefully ignoring negative face\n  float longitude = atan(x / depth) + PI / 2.; // [-PI / 2, PI / 2]\n  float latitude = asin(y);          // [-PI / 2, PI / 2]\n\n  // 3. Do equirectangular projection to get plane/texture coordinates\n  //    For longitude: Map to [0.25, 0.75] (center is 0.5, range is 0.5)\n  //    For latitude: Map to [0, 1] (center is 0.5, range is 0.5)\n\n  float texture_x = (longitude + PI) / (2. * PI);\n  float texture_y = (latitude + PI / 2.) / PI;\n\n  // 4. Grab texture colors. Black = land, white = no land.\n\n  vec2 texture_position = vec2(mod(texture_x, 1.0), texture_y);\n  vec3 texture_color = texture2D(landTexture, texture_position).rgb;\n  vec3 mono_color = texture2D(monoTexture, texture_position).rgb;\n\n  texture_color += vec3(240. / 255.) * mono_color;\n\n  // 5. Calculate lighting.\n\n  float dotted = dot(vec3(x, y, depth), LIGHT_REVERSED) / LIGHT_MAG;\n  float light = sign(dotted) * pow(dotted, 1.2);\n  light = min(1.0, 0.55 + light * 0.3);\n\n  gl_FragColor = vec4(texture_color, 1.);\n  gl_FragColor.rgb *= light;\n}\n";
 },{}],"shaders/texture.vert":[function(require,module,exports) {
 module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nuniform vec2 aspectRatio;\n\nattribute vec2 position;\n\nvarying vec2 v_position;\n\nvoid main() {\n  // For some reason textures only cover the first quadrant of the clip space.\n  // Remember that v_position should become the coordinate of the texture in\n  // clip space. Cutting position in half means that (1, 1) in the clip space\n  // becomes (0.5, 0.5) on the texture.\n  // two quadrants' worth of space.\n  // Adding 0.5 to position means that (1, 1) in the clip space becomes (1, 1)\n  // on the texture, and similarly (0, 0) -> (0.5, 0.5) (the texture's center)\n  // and (-1, -1) -> (0, 0).\n\n  // v_position = 0.5 + position * 0.5;\n  v_position = position * aspectRatio;\n\n  // gl_Position should be position because the position attribute covers the\n  // whole clip space\n  gl_Position = vec4(position, 0, 1);\n}\n";
 },{}],"specularity@2x.png":[function(require,module,exports) {
@@ -10373,12 +10373,11 @@ function createLineDrawer(vertices) {
   });
 }
 
-const pointAttr = array => ({
-  buffer: regl.buffer(array)
-});
-
 async function main() {
-  const [borders, flights, landTexture, monoTexture, planeTexture] = await Promise.all([getBorders(), getFlights(), getTexture(_specularity2x.default), // 'specularity@2x.png'
+  const [borders, {
+    size,
+    ...flights
+  }, landTexture, monoTexture, planeTexture] = await Promise.all([getBorders(), getFlights(), getTexture(_specularity2x.default), // 'specularity@2x.png'
   getTexture(_mono2x.default), // 'mono@2x.png'
   getTexture(_airplane.default)]);
   const drawBorders = createLineDrawer(borders);
@@ -10387,11 +10386,22 @@ async function main() {
     vert: _flights2.default,
     uniforms: {
       plane_texture: planeTexture,
+      size,
       speed: 0.0001,
       elapsed: regl.prop('elapsed'),
       aspectRatio
     },
     attributes: flights,
+    blend: {
+      enable: true,
+      func: {
+        src: 'src alpha',
+        dst: 'one minus src alpha'
+      }
+    },
+    depth: {
+      enable: false
+    },
     count: flights.depart_point.length / 3,
     primitive: 'triangles'
   });
@@ -10417,11 +10427,13 @@ async function main() {
     regl.clear({
       color: [0, 0, 0, 0],
       depth: 1
-    }); // drawFlights({ elapsed: time * 1000 });
-    // drawBorders();
-
+    });
+    drawBorders();
     drawTexture({
       tick
+    });
+    drawFlights({
+      elapsed: time * 1000
     });
   });
 }
@@ -10463,7 +10475,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49471" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50557" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
