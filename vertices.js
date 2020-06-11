@@ -29,9 +29,9 @@ export function compute_flight_paths(buffer) {
 
   const point_index = [];
 
-  const size = 0.1; // Also equals 2/3 * altitude because we're at centroid
+  const size = 0.03; // Also equals 2/3 * altitude because we're at centroid
 
-  for (let i = 0; i < 20; i += 3) {
+  for (let i = 0; i < array.length; i += 3) {
     const [from_lon, from_lat, from_china] = airports[array[i]];
     const [to_lon, to_lat, to_china] = airports[array[i + 1]];
 
