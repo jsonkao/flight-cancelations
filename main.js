@@ -54,14 +54,10 @@ function createLineDrawer(vertices) {
   });
 }
 
-const pointAttr = array => ({
-  buffer: regl.buffer(array),
-})
-
 async function main() {
   const [
     borders,
-    flights,
+    { size, ...flights },
     landTexture,
     monoTexture,
     planeTexture,
@@ -81,6 +77,7 @@ async function main() {
 
     uniforms: {
       plane_texture: planeTexture,
+      size,
 
       speed: 0.0001,
       elapsed: regl.prop('elapsed'),
@@ -89,6 +86,15 @@ async function main() {
     },
 
     attributes: flights,
+
+    blend: {
+      enable: true,
+      func: {
+        src: 'src alpha',
+        dst: 'one minus src alpha',
+      },
+    },
+    // depth: { enable: false },
 
     count: flights.depart_point.length / 3,
     primitive: 'triangles',
