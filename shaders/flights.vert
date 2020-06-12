@@ -35,19 +35,20 @@ mat2 rotate2d(float _angle) {
   return mat2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle));
 }
 
-vec3 project(vec2 point) {
-  return project(point, longitude_offset);
-}
+vec3 project(vec2 point) { return project(point, longitude_offset); }
 
+float hav(float theta) { return pow(sin(theta / 2.), 2.); }
+
+// Calculates great-circle distance between two spherical points given their
+// longitudes and latitudes
 float haversine_distance() {
   vec2 depart_rad = a_depart_center * (PI / 180.);
   vec2 arrive_rad = a_arrive_center * (PI / 180.);
+  vec2 delta = arrive_rad - depart_rad;
 
-  vec2 mean = (arrive_rad - depart_rad) / 2.;
+  float haversine =
+      hav(delta[1]) + cos(depart_rad[1]) * cos(arrive_rad[1]) * hav(delta[0]);
 
-  float haversine = pow(sin(mean[1]), 2.) + cos(depart_rad[1]) *
-                                                cos(arrive_rad[1]) *
-                                                pow(sin(mean[0]), 2.);
   return 2. * asin(sqrt(haversine));
 }
 
@@ -56,9 +57,9 @@ void main() {
 
   vec2 long_lat = mix(a_depart_center, a_arrive_center, t);
   vec3 position = project(long_lat);
+  vec3 next_position =
+      project(long_lat + (a_arrive_center - a_depart_center) * .001);
 
-  vec3 next_position = project(
-      long_lat + (a_arrive_center - a_depart_center) * .001);
   vec3 span = next_position - position;
   float angle = atan(span.y, span.x);
 
@@ -76,13 +77,13 @@ void main() {
   float desired_angle = PI / 2.;
   v_position *= rotate2d(desired_angle - angle);
 
-  // 2. Right now we have a triangle with altitude =
-  // 1 + 1/2 and a side length of √3. We want a side length of 1, so we shrink
+  // 2. Right now we have a triangle with altitude = 1 + 1/2
+  // a side length of √3. We want a side length of 1, so we shrink
   // the triangle again by √3.
 
   v_position /= sqrt(3.);
 
-  // 4, Now just place triangle bottom left tip at (0, 0)
+  // 3, Now just place triangle bottom left tip at (0, 0)
 
   v_position += vec2(0.5, sqrt(3.) / 6.);
 

@@ -13,9 +13,7 @@ void main() {
   vec2 position = v_position;
 
   // Scale a bit relative to (0.5, 0.5) (the center of the image)
-  position -= vec2(0.5);
-  position *= 1.15;
-  position += vec2(0.5);
+  position = 1.15 * (position - vec2(0.5)) + vec2(0.5);
 
   // Final adjustments since there's some padding on airplane.png
   position.y += 0.2;
