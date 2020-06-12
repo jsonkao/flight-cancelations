@@ -97,8 +97,8 @@ async function main() {
       elapsed: regl.prop('elapsed'),
       aspectRatio,
 
-      speed: 0.0003,
-      size: 0.03, // Also equals 2/3 * altitude because we're at centroid
+      speed: 0.0001,
+      size: 2,
     },
 
     attributes: flights,
@@ -143,8 +143,8 @@ async function main() {
   });
 
   regl.frame(({ time }) => {
-    // const longitude_offset = time / 4;
-    let longitude_offset = 3;
+    const longitude_offset = time / 10;
+    // let longitude_offset = 3;
 
     drawTexture({ longitude_offset });
     drawBorders({ longitude_offset });

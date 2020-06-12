@@ -35,49 +35,56 @@ mat2 rotate2d(float _angle) {
   return mat2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle));
 }
 
-vec3 project_with_offset(vec2 point) {
+vec3 project(vec2 point) {
   return project(point, longitude_offset);
 }
 
-float great_circle_distance(vec3 a, vec3 b) { return acos(dot(a, b)); }
+float haversine_distance() {
+  vec2 depart_rad = a_depart_center * (PI / 180.);
+  vec2 arrive_rad = a_arrive_center * (PI / 180.);
+
+  vec2 mean = (arrive_rad - depart_rad) / 2.;
+
+  float haversine = pow(sin(mean[1]), 2.) + cos(depart_rad[1]) *
+                                                cos(arrive_rad[1]) *
+                                                pow(sin(mean[0]), 2.);
+  return 2. * asin(sqrt(haversine));
+}
 
 void main() {
-  vec3 depart_center = project_with_offset(a_depart_center);
-  vec3 arrive_center = project_with_offset(a_arrive_center);
+  float t = mod(speed * elapsed / haversine_distance(), 1.);
 
-  vec3 span = arrive_center - depart_center;
+  vec2 long_lat = mix(a_depart_center, a_arrive_center, t);
+  vec3 position = project(long_lat);
+
+  vec3 next_position = project(
+      long_lat + (a_arrive_center - a_depart_center) * .001);
+  vec3 span = next_position - position;
   float angle = atan(span.y, span.x);
+
   float theta = angle - point_index * (2. / 3.) * PI;
+  vec2 delta = vec2(cos(theta), sin(theta));
 
-  vec3 delta = size * vec3(cos(theta), sin(theta), 0);
+  vec3 vertex_position = project(long_lat + size * delta);
 
-  float travel_time =
-      great_circle_distance(depart_center, arrive_center) / speed;
-  float t = mod(elapsed / travel_time, 1.);
+  v_depth = position.z;
 
-  vec3 center = project_with_offset(mix(a_depart_center, a_arrive_center, t));
-  vec3 position = center + delta;
+  v_position = delta;
 
-  v_depth = center.z;
-
-  // 1. Center triangle at the origin
-
-  v_position = delta.xy;
-
-  // 2. Rotate so that the triangle points up
+  // 1. Rotate so that the triangle points up
 
   float desired_angle = PI / 2.;
   v_position *= rotate2d(desired_angle - angle);
 
-  // 3. Shrink triangle by SIZE. The result is a triangle with altitude =
+  // 2. Right now we have a triangle with altitude =
   // 1 + 1/2 and a side length of √3. We want a side length of 1, so we shrink
   // the triangle again by √3.
 
-  v_position /= size * sqrt(3.);
+  v_position /= sqrt(3.);
 
   // 4, Now just place triangle bottom left tip at (0, 0)
 
   v_position += vec2(0.5, sqrt(3.) / 6.);
 
-  gl_Position = vec4(position.xy / aspectRatio, 0, 1);
+  gl_Position = vec4(vertex_position.xy / aspectRatio, 0, 1);
 }

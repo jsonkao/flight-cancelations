@@ -7,7 +7,7 @@ uniform sampler2D monoTexture;
 
 uniform float longitude_offset;
 
-vec3 light_reversed = vec3(-0.5, 0.5, 1);
+vec3 light_reversed = vec3(-0.5, 0.5, 0.3);
 float light_mag = length(light_reversed);
 
 varying vec2 v_position;

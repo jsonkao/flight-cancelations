@@ -10,7 +10,7 @@ export function compute_flight_paths(buffer) {
   const arrive_centers = [];
   const point_index = [];
 
-  for (let i = 0; i < 4; i += 3) {
+  for (let i = 0; i < array.length; i += 3) {
     const [depart_lon, depart_lat, depart_china] = airports[array[i]];
     const [arrive_lon, arrive_lat, arrive_china] = airports[array[i + 1]];
 
