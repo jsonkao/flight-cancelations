@@ -51,14 +51,15 @@ void main() {
   vec3 texture_color = texture2D(landTexture, texture_position).rgb;
   vec3 mono_color = texture2D(monoTexture, texture_position).rgb;
 
-  texture_color += vec3(240. / 255.) * mono_color;
+  texture_color += mono_color;
 
   // 5. Calculate lighting.
 
   float dotted = dot(vec3(x, y, depth), light_reversed) / light_mag;
-  float light = sign(dotted) * pow(dotted, 1.2);
-  light = min(1.0, 0.55 + light * 0.3);
+  float light = sign(dotted) * pow(abs(dotted), 1.7);
+  light = 0.6 + light * 0.37;
 
+  // gl_FragColor = vec4(texture_color, 1.);
   gl_FragColor = vec4(texture_color, 1.);
   gl_FragColor.rgb *= light;
 }
