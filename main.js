@@ -67,6 +67,9 @@ function createLineDrawer(vertices) {
   });
 }
 
+// const light_reversed = [-0.5, 0.5, 1];
+// const light_mag = Math.hypot(...light_reversed);
+
 async function main() {
   const [
     borders,
@@ -94,7 +97,7 @@ async function main() {
       elapsed: regl.prop('elapsed'),
       aspectRatio,
 
-      speed: 0.001,
+      speed: 0.0003,
       size: 0.03, // Also equals 2/3 * altitude because we're at centroid
     },
 
@@ -140,8 +143,8 @@ async function main() {
   });
 
   regl.frame(({ time }) => {
-    const longitude_offset = time / 2;
-    // let longitude_offset = Math.PI / 2;
+    // const longitude_offset = time / 4;
+    let longitude_offset = 3;
 
     drawTexture({ longitude_offset });
     drawBorders({ longitude_offset });

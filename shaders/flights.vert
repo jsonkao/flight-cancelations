@@ -24,8 +24,6 @@ uniform float elapsed;
 uniform float speed;
 uniform float size;
 
-// attribute vec2 a_depart_point;
-// attribute vec2 a_arrive_point;
 attribute vec2 a_depart_center;
 attribute vec2 a_arrive_center;
 attribute float point_index;
@@ -41,6 +39,8 @@ vec3 project_with_offset(vec2 point) {
   return project(point, longitude_offset);
 }
 
+float great_circle_distance(vec3 a, vec3 b) { return acos(dot(a, b)); }
+
 void main() {
   vec3 depart_center = project_with_offset(a_depart_center);
   vec3 arrive_center = project_with_offset(a_arrive_center);
@@ -51,21 +51,18 @@ void main() {
 
   vec3 delta = size * vec3(cos(theta), sin(theta), 0);
 
-  vec3 depart_point = depart_center + delta;
-  vec3 arrive_point = arrive_center + delta;
-
-  // TODO: adjust for the curvature of the Earth
-  float travel_time = distance(depart_center, arrive_center) / speed;
+  float travel_time =
+      great_circle_distance(depart_center, arrive_center) / speed;
   float t = mod(elapsed / travel_time, 1.);
 
-  vec3 position = mix(depart_point, arrive_point, t);
-  vec3 center = mix(depart_center, arrive_center, t);
+  vec3 center = project_with_offset(mix(a_depart_center, a_arrive_center, t));
+  vec3 position = center + delta;
 
-  v_depth = position.z;
+  v_depth = center.z;
 
   // 1. Center triangle at the origin
 
-  v_position = (position - center).xy;
+  v_position = delta.xy;
 
   // 2. Rotate so that the triangle points up
 

@@ -4,12 +4,13 @@ precision mediump float;
 
 uniform sampler2D landTexture;
 uniform sampler2D monoTexture;
+
 uniform float longitude_offset;
 
-varying vec2 v_position;
+vec3 light_reversed = vec3(-0.5, 0.5, 1);
+float light_mag = length(light_reversed);
 
-vec3 LIGHT_REVERSED = vec3(-0.5, 0.5, 1);
-float LIGHT_MAG = length(LIGHT_REVERSED);
+varying vec2 v_position;
 
 void main() {
 
@@ -54,7 +55,7 @@ void main() {
 
   // 5. Calculate lighting.
 
-  float dotted = dot(vec3(x, y, depth), LIGHT_REVERSED) / LIGHT_MAG;
+  float dotted = dot(vec3(x, y, depth), light_reversed) / light_mag;
   float light = sign(dotted) * pow(dotted, 1.2);
   light = min(1.0, 0.55 + light * 0.3);
 

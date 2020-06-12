@@ -7,7 +7,7 @@ varying float v_depth;
 
 void main() {
   if (v_depth < 0.) {
-    discard;
+    // discard;
   }
 
   vec2 position = v_position;
@@ -22,5 +22,6 @@ void main() {
 
   vec4 texture_color = texture2D(planeTexture, position);
 
-  gl_FragColor = vec4(0.67, 0.02, 0.31, texture_color.a);
+  // gl_FragColor = vec4(0.67, 0.02, 0.31, texture_color.a);
+  gl_FragColor = vec4(v_depth, -v_depth, 0, texture_color.a);
 }
