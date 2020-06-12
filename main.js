@@ -11,6 +11,8 @@ import textureVert from './shaders/texture.vert';
 import specImg from './specularity@2x.png';
 import monoImg from './mono@2x.png';
 import planeImg from './airplane.png';
+import planeShadowImg from './shadow.png';
+
 import borderData from './borders.dat';
 import flightData from './20200123.dat';
 
@@ -77,12 +79,14 @@ async function main() {
     landTexture,
     monoTexture,
     planeTexture,
+    planeShadowTexture,
   ] = await Promise.all([
     getBorders(),
     getFlights(),
     getTexture(specImg), // 'specularity@2x.png'
     getTexture(monoImg), // 'mono@2x.png'
     getTexture(planeImg),
+    getTexture(planeShadowImg),
   ]);
 
   const drawBorders = createLineDrawer(borders);
@@ -93,6 +97,7 @@ async function main() {
 
     uniforms: {
       planeTexture,
+      planeShadowTexture,
       longitude_offset,
       elapsed: regl.prop('elapsed'),
       aspectRatio,
@@ -106,8 +111,10 @@ async function main() {
     blend: {
       enable: true,
       func: {
-        src: 'src alpha',
-        dst: 'one minus src alpha',
+        srcRGB: 'src alpha',
+        srcAlpha: 1,
+        dstRGB: 'one minus src alpha',
+        dstAlpha: 1,
       },
     },
     depth: { enable: false },
@@ -143,8 +150,8 @@ async function main() {
   });
 
   regl.frame(({ time }) => {
-    const longitude_offset = time / 10;
-    // let longitude_offset = 3;
+    // const longitude_offset = time / 10;
+    let longitude_offset = 1;
 
     drawTexture({ longitude_offset });
     drawBorders({ longitude_offset });
